@@ -7,7 +7,6 @@ import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
 import RowOptions from '../RowOptions/RowOptions'
 import ColumnOptions from '../ColumnOptions/ColumnOptions';
 
-// need to generate ID for question and initial input, and buttons
 let generateId = () => Math.floor(Math.random() * 100000) + 1;
 let handleDeleteSequence;
 
@@ -146,19 +145,15 @@ class Form extends React.Component {
 
   handleToggle(e) {
     const { name } = e.target;
-    console.log(name, 'name in toggle function')
-    
-
     const isChecked = this.state[name] ? false : true;
     this.setState(prevState => ({
         ...prevState,
         [name]: isChecked
-    }), () => console.log(this.state[name], 'toggle state'));
+    }));
   }
 
   onQuestionChange(e) {
     const { value } = e.target;
-    console.log(value, 'value in on Question change')
     this.setState(prevState => ({
         ...prevState,
         text: value
@@ -169,16 +164,18 @@ class Form extends React.Component {
     const file = e.target.files[0];
     const question = {...this.state};
 
-    question.media = {
-      id: file.lastModified,
-      url: file.webKitRelativePath,
-      file_name: file.name,
-      content_type: file.type,
-    }
+    if (file?.file_name) {
+      question.media = {
+        id: generateId(),
+        url: "",
+        file_name: file.name,
+        content_type: file.type,
+      }
 
-    this.setState({
-      media: question
-    })
+      this.setState({
+        media: question
+      })
+    }
   }
 
   resetState(sequence) {
@@ -221,9 +218,12 @@ class Form extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { text, type, options, randomize } = this.state;
-    const { row, column } = options;
-    
-    inputCheck(text, type, row, column);
+    const { row, column } = options; 
+    const check = inputCheck(text, type, row, column);
+
+    if (!check) {
+      return;
+    }
 
     let changedState = {...this.state};
 
@@ -233,12 +233,10 @@ class Form extends React.Component {
       for (let i = 0; i < rowsArray.length; i++) {
         rowsArray[i].sequence = i+1;
       }
-      // rename
       changedState.options.row = rowsArray;
     }
 
     this.props.addQuestion(changedState);
-
     this.resetState();
   }
 
@@ -255,7 +253,7 @@ class Form extends React.Component {
 
   handleQuestionDelete(sequence) {
     handleDeleteSequence = sequence;
-      this.resetState(handleDeleteSequence);
+    this.resetState(handleDeleteSequence);
   }
 
   render() {
@@ -268,7 +266,7 @@ class Form extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="HeaderBar">
-          <div>...</div>
+          {/* <div>...</div> */}
           <div className="LayoutSelectorWrapper">
             <select
               className="LayoutSelector"
@@ -282,16 +280,14 @@ class Form extends React.Component {
           </div>
           <div className="VerticleDivider"></div>
           <div className="EditOptionWrapper">
-            <button type="button" onClick={() => this.handleQuestionDelete(this.state.sequence)}>Delete</button>
+            <button type="button" onClick={() => this.handleQuestionDelete(this.state.sequence)}>Delete Question</button>
           </div>
         </div>
-{/* QUESTION */}
       <EnterYourQuestion 
         value={this.state.text}
         onQuestionChange={this.onQuestionChange}
         onFileChange={this.onFileChange}
       />
-{/* ROW ANSWERS OPTIONS */}
       <RowOptions
         row={this.state.options.row}
         handleInputChange={this.handleInputChange}

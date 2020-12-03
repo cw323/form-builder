@@ -29,3 +29,17 @@ input[type=submit] {
   padding: 8px 14px;
   border-radius: 5px;
 }
+
+#bulkButton {
+  border: none;
+  background-color: transparent;
+}
+
+#bulkButton:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+#bulkButton:hover {
+  cursor: pointer;
+}

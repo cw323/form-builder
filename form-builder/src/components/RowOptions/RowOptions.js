@@ -6,12 +6,12 @@ const RowOptions = ({ row, handleInputChange, addOption, deleteOption, handleTog
       <div className="OptionsTitleWrapper">
         <h3>Row Options</h3>
         <div className="VerticalDivider"></div>
-        <button type="button">+ Bulk Answers</button>
+        <button id="bulkButton" type="button">+ Bulk Answers</button>
       </div>
       {row.map((option, index) => {
         return (
           <div key={option.id} className="AnswerInputWrapper">
-            <div>Drag</div>
+            {/* <div>Drag</div> */}
             <input
               name="row"
               type="text"
@@ -20,8 +20,12 @@ const RowOptions = ({ row, handleInputChange, addOption, deleteOption, handleTog
               onChange={(e) => handleInputChange(index, e)}
             >
             </input>
-            <button name="row" type="button" onClick={addOption}>Add</button>
-            <button name="row" type="button" onClick={(e) => deleteOption(index, e)}>Delete</button>
+            <button name="row" type="button" onClick={addOption}>
+              Add
+            </button>
+            <button name="row" type="button" onClick={(e) => deleteOption(index, e)}>
+              Delete
+            </button>
           </div>
         )
       })}

@@ -4,17 +4,6 @@ import Form from './components/Form/Form';
 import data from './data';
 import ListOfQuestions from './components/ListOfQuestions/ListOfQuestions';
 
-const Footer = () => {
-  //
-  return (
-  <div>
-    <button onClick={() => alert('hi')}>Save For Later</button>
-    <button>Previous</button>
-    <button>Next</button>
-  </div>
-  )
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -110,47 +99,38 @@ class App extends React.Component {
           <div onClick={() => this.selectQuestion(index)}>
             Question {index + 1}: {question.text}
           </div>
-          <button name="up" type="button" onClick={(e) => this.handleMove(index, e)}>up</button>
-          <button name="down" type="button" onClick={(e) => this.handleMove(index, e)}>down</button>
+          <button name="up" type="button" onClick={(e) => this.handleMove(index, e)}>Move Up</button>
+          <button name="down" type="button" onClick={(e) => this.handleMove(index, e)}>Move Down</button>
         </div>
       )
     })
 
     return (
       <div className="App">
-        <h1 className="title">Setup Survey</h1>
         <div className="ListAndFormWrapper">
           <ListOfQuestions
-              questions={this.state.questions}
-              selectQuestion={this.selectQuestion}
-              handleMove={this.handleMove}
+                questions={this.state.questions}
+                selectQuestion={this.selectQuestion}
+                handleMove={this.handleMove}
           />
-          <div className="FormWrapper">
-            <Form
-              questionTypes={this.state.allowed_question_types}
-              addQuestion={this.addQuestion}
-              questionsLength={this.state.questions.length}
-              maxQuestions={this.state.max_allowed_questions}
-              viewQuestion={this.state.questions[this.state.currentSequenceView-1]}
-              handleDelete={this.handleDelete}
-            />
+          <div className="TitleAndFormWrapper">
+            <h1 className="Title">Setup Survey</h1>
+            <div className="FormWrapper">
+              <Form
+                questionTypes={this.state.allowed_question_types}
+                addQuestion={this.addQuestion}
+                questionsLength={this.state.questions.length}
+                maxQuestions={this.state.max_allowed_questions}
+                viewQuestion={this.state.questions[this.state.currentSequenceView-1]}
+                handleDelete={this.handleDelete}
+              />
+            </div>
           </div>
-      
-            
-
         </div>
-        {/* <Footer /> */}
-
         <div>{JSON.stringify(this.state)}</div>
-        
-          
       </div>
     );
   }
 }
-
-// App.defaultProps = {
-//   ...daga
-// }
 
 export default App;

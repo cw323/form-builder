@@ -7,8 +7,8 @@ const ListOfQuestions = ({ questions, selectQuestion, handleMove }) => {
         <div className="SelectQuestion" onClick={() => selectQuestion(index)}>
           Question {index + 1}: {question.text}
         </div>
-        <button name="up" type="button" onClick={(e) => handleMove(index, e)}>up</button>
-        <button name="down" type="button" onClick={(e) => handleMove(index, e)}>down</button>
+        <button name="up" type="button" onClick={(e) => handleMove(index, e)}>Move Up</button>
+        <button name="down" type="button" onClick={(e) => handleMove(index, e)}>Move Down</button>
       </div>
     )
   });

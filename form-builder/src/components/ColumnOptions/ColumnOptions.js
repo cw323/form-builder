@@ -1,5 +1,4 @@
 import './ColumnOptions.css';
-import add from '../../../public/add_circle_online-24px.svg';
 
 const ColumnOptions = ({ type, column, handleInputChange, addOption, deleteOption }) => {
   if (type === 'RADIO_GRID' || type === 'CHECK_BOX_GRID') {
@@ -8,12 +7,12 @@ const ColumnOptions = ({ type, column, handleInputChange, addOption, deleteOptio
           <div className="OptionsTitleWrapper">
           <div className="VerticalDivider"></div>
             <h3>Column Options</h3>
-            <button type="button">+ Bulk Answers</button>
+            <button id="bulkButton" type="button">+ Bulk Answers</button>
           </div>
           {column.map((option, index) => {
             return (
               <div key={option.id} className="AnswerInputWrapper">
-                <div>Drag</div>
+                {/* <div>Drag</div> */}
                 <input
                   name="column"
                   type="text"
@@ -22,8 +21,12 @@ const ColumnOptions = ({ type, column, handleInputChange, addOption, deleteOptio
                   onChange={(e) => handleInputChange(index, e)}
                 >
                 </input>
-                <button name="column" type="button" onClick={addOption}>Add</button>
-                <button name="column" type="button" onClick={(e) => deleteOption(index, e)}>Delete</button>
+                <button id="addButton" name="column" type="button" onClick={addOption}>
+                  Add
+                </button>
+                <button id="deleteButton" name="column" type="button" onClick={(e) => deleteOption(index, e)}>
+                  Delete
+                </button>
               </div>
           )
         })}
