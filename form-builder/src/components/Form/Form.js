@@ -66,9 +66,7 @@ class Form extends React.Component {
   handleInputChange(index, e) {
     const { name, value } = e.target;
     const items = [...this.state.options[name]];
-    // one item in the row array
     items[index].text = value;
-
     let opposite;
     let oppositeName;
 
@@ -274,7 +272,7 @@ class Form extends React.Component {
               onChange={this.handleLayout}
             >
               {this.props.questionTypes.map(option => {
-                return <QuestionTypes option={option} />;
+                return <QuestionTypes key={option} option={option} />;
               })}
             </select>
           </div>
