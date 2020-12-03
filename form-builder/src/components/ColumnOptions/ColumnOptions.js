@@ -21,10 +21,10 @@ const ColumnOptions = ({ type, column, handleInputChange, addOption, deleteOptio
                   onChange={(e) => handleInputChange(index, e)}
                 >
                 </input>
-                <button id="addButton" name="column" type="button" onClick={addOption}>
+                <button id="AddButton" name="column" type="button" onClick={addOption}>
                   Add
                 </button>
-                <button id="deleteButton" name="column" type="button" onClick={(e) => deleteOption(index, e)}>
+                <button id="DeleteButton" name="column" type="button" onClick={(e) => deleteOption(index, e)}>
                   Delete
                 </button>
               </div>

@@ -20,10 +20,10 @@ const RowOptions = ({ row, handleInputChange, addOption, deleteOption, handleTog
               onChange={(e) => handleInputChange(index, e)}
             >
             </input>
-            <button name="row" type="button" onClick={addOption}>
+            <button id="AddButton" name="row" type="button" onClick={addOption}>
               Add
             </button>
-            <button name="row" type="button" onClick={(e) => deleteOption(index, e)}>
+            <button id="DeleteButton" name="row" type="button" onClick={(e) => deleteOption(index, e)}>
               Delete
             </button>
           </div>

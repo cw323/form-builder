@@ -43,3 +43,11 @@ input[type=submit] {
 #bulkButton:hover {
   cursor: pointer;
 }
+
+#AddButton {
+  height: 35px;
+}
+
+#DeleteButton {
+  height: 35px;
+}
