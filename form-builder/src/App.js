@@ -93,18 +93,6 @@ class App extends React.Component {
   }
 
   render() {
-    let questionsList = this.state.questions.map((question, index) => {
-      return (
-        <div key={question.id}>
-          <div onClick={() => this.selectQuestion(index)}>
-            Question {index + 1}: {question.text}
-          </div>
-          <button name="up" type="button" onClick={(e) => this.handleMove(index, e)}>Move Up</button>
-          <button name="down" type="button" onClick={(e) => this.handleMove(index, e)}>Move Down</button>
-        </div>
-      )
-    })
-
     return (
       <div className="App">
         <div className="ListAndFormWrapper">
