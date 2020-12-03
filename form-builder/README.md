@@ -3,12 +3,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 A simple form builder that allows the user to perform the following operations:
+
 - Add a new question
 - Delete a question
 - Order the questions
 - Upload an image/video
 - Add / Delete options
 - Add row and column options in the case of Grid questions
+
+## Install Dependencies
+
+In the project directory, you can run:
+
+### `npm install`
 
 ## Available Scripts
 
