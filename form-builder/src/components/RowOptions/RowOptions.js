@@ -1,9 +1,11 @@
+import './RowOptions.css';
+
 const RowOptions = ({ row, handleInputChange, addOption, deleteOption, handleToggle, includeOther, randomize }) => {
   return (
     <div className="RowOptionsWrapper">
       <div className="OptionsTitleWrapper">
-        <h1>Row Options</h1>
-        <div className="VerticleDivider"></div>
+        <h3>Row Options</h3>
+        <div className="VerticalDivider"></div>
         <button type="button">+ Bulk Answers</button>
       </div>
       {row.map((option, index) => {

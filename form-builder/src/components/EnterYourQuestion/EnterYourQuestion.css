@@ -1,0 +1,4 @@
+.QuestionFileWrapper {
+  display: flex;
+  flex-direction: row;
+}

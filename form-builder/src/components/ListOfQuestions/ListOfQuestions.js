@@ -1,8 +1,10 @@
+import './ListOfQuestion.css'
+
 const ListOfQuestions = ({ questions, selectQuestion, handleMove }) => {
   const list = questions.map((question, index) => {
     return (
       <div key={question.id}>
-        <div onClick={() => selectQuestion(index)}>
+        <div className="SelectQuestion" onClick={() => selectQuestion(index)}>
           Question {index + 1}: {question.text}
         </div>
         <button name="up" type="button" onClick={(e) => handleMove(index, e)}>up</button>

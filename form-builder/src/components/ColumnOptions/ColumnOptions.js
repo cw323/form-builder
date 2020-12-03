@@ -1,10 +1,13 @@
+import './ColumnOptions.css';
+import add from '../../../public/add_circle_online-24px.svg';
+
 const ColumnOptions = ({ type, column, handleInputChange, addOption, deleteOption }) => {
   if (type === 'RADIO_GRID' || type === 'CHECK_BOX_GRID') {
     return (
         <div className="ColumnOptionsWrapper">
           <div className="OptionsTitleWrapper">
-            <h1>Column Options</h1>
-            <div className="VerticleDivider"></div>
+          <div className="VerticalDivider"></div>
+            <h3>Column Options</h3>
             <button type="button">+ Bulk Answers</button>
           </div>
           {column.map((option, index) => {

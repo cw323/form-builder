@@ -119,23 +119,31 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1 className="title">Setup Survey</h1>
-        <Form
-          questionTypes={this.state.allowed_question_types}
-          addQuestion={this.addQuestion}
-          questionsLength={this.state.questions.length}
-          maxQuestions={this.state.max_allowed_questions}
-          viewQuestion={this.state.questions[this.state.currentSequenceView-1]}
-          handleDelete={this.handleDelete}
-        />
+        <div className="ListAndFormWrapper">
+          <ListOfQuestions
+              questions={this.state.questions}
+              selectQuestion={this.selectQuestion}
+              handleMove={this.handleMove}
+          />
+          <div className="FormWrapper">
+            <Form
+              questionTypes={this.state.allowed_question_types}
+              addQuestion={this.addQuestion}
+              questionsLength={this.state.questions.length}
+              maxQuestions={this.state.max_allowed_questions}
+              viewQuestion={this.state.questions[this.state.currentSequenceView-1]}
+              handleDelete={this.handleDelete}
+            />
+          </div>
+      
+            
+
+        </div>
         {/* <Footer /> */}
 
-        {JSON.stringify(this.state)}
+        <div>{JSON.stringify(this.state)}</div>
         
-          <ListOfQuestions
-            questions={this.state.questions}
-            selectQuestion={this.selectQuestion}
-            handleMove={this.handleMove}
-          />
+          
       </div>
     );
   }
