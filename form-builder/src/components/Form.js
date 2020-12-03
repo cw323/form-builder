@@ -35,7 +35,7 @@ class Form extends React.Component {
         ]
       },
       sequence: 1,
-      randomize: true,
+      randomize: false,
       include_other: false
     }
 
@@ -43,11 +43,27 @@ class Form extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onQuestionChange = this.onQuestionChange.bind(this);
     this.onFileChange = this.onFileChange.bind(this);
-    this.handleIncludeOther = this.handleIncludeOther.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addOption = this.addOption.bind(this);
     this.deleteOption = this.deleteOption.bind(this);
     this.handleQuestionDelete = this.handleQuestionDelete.bind(this);
+    this.shuffleFunc = this.shuffleFunc.bind(this);
+    this.resetState = this.resetState.bind(this);
+  }
+
+  shuffleFunc(arr) {
+    let currentIndex = arr.length, tempValue, randomIndex;
+  
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      tempValue = arr[currentIndex];
+      arr[currentIndex] = arr[randomIndex];
+      arr[randomIndex] = tempValue;
+    }
+  
+    return arr;
   }
 
   handleLayout(e) {
@@ -137,12 +153,16 @@ class Form extends React.Component {
     }));
   }
 
-  handleIncludeOther() {
-    const isChecked = this.state.include_other ? false : true;
+  handleToggle(e) {
+    const { name } = e.target;
+    console.log(name, 'name in toggle function')
+    
+
+    const isChecked = this.state[name] ? false : true;
     this.setState(prevState => ({
         ...prevState,
-        include_other: isChecked
-    }));
+        [name]: isChecked
+    }), () => console.log(this.state[name], 'toggle state'));
   }
 
   onQuestionChange(e) {
@@ -169,31 +189,7 @@ class Form extends React.Component {
     })
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { text, type, options } = this.state;
-    const { row, column } = options;
-    
-    if (text.length < 5 || row.length === 0) {
-      return alert('Question too short or not enough answer options.');
-    }
-
-    for (let i = 0; i < row.length; i++) {
-      if (row[i].text === '') {
-        return alert('Please fill in or delete answer options input box.')
-      }
-    }
-
-    if (type === "RADIO_GRID" || type === "CHECK_BOX_GRID") {
-      for (let i = 0; i < column.length; i++) {
-        if (column[i].text === '') {
-          return alert('Please fill in answer options input or delete answer option.')
-        }
-      }
-    }
-
-    this.props.addQuestion(this.state);
-
+  resetState(sequence) {
     this.setState({
       id: generateId(),
       text: "",
@@ -219,11 +215,55 @@ class Form extends React.Component {
             sequence: 1
           }
         ]
-        },
-        sequence: 0,
-        randomize: true,
-        include_other: false
-      });
+      },
+      sequence: 1,
+      randomize: false,
+      include_other: false
+    }, () => {
+      if (sequence) {
+        this.props.handleDelete(handleDeleteSequence);
+      }
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { text, type, options, randomize } = this.state;
+    const { row, column } = options;
+    
+    if (text.length < 5 || row.length === 0) {
+      return alert('Question too short or not enough answer options.');
+    }
+
+    for (let i = 0; i < row.length; i++) {
+      if (row[i].text === '') {
+        return alert('Please fill in or delete answer options input box.')
+      }
+    }
+
+    if (type === "RADIO_GRID" || type === "CHECK_BOX_GRID") {
+      for (let i = 0; i < column.length; i++) {
+        if (column[i].text === '') {
+          return alert('Please fill in answer options input or delete answer option.')
+        }
+      }
+    }
+
+    let changedState = {...this.state};
+
+    if (randomize) {
+      let rowsArray = [...row];
+      rowsArray = this.shuffleFunc(rowsArray)
+      for (let i = 0; i < rowsArray.length; i++) {
+        rowsArray[i].sequence = i+1;
+      }
+      // rename
+      changedState.options.row = rowsArray;
+    }
+
+    this.props.addQuestion(changedState);
+
+    this.resetState();
   }
 
   componentDidUpdate(prevProps) {
@@ -239,48 +279,7 @@ class Form extends React.Component {
 
   handleQuestionDelete(sequence) {
     handleDeleteSequence = sequence;
-
-    this.setState({
-        "id": generateId(),
-        // question text input
-        "text": "",
-        // type is selected from the drop down menu in the header? where it says "Select Grid?"
-        "type": "RADIO_GRID",
-        // option to upload a media in image or video form
-        "media": {
-          // id for media
-          "id": 0,
-          // url for media
-          "url": "",
-          // file name from upload
-          "file_name": "",
-          // image or video that was uploaded?
-          "content_type": ""
-        },
-        "options": {
-          "row": [
-        // an array of options / answers that the user has entered.
-            {
-      
-              "id": generateId(),
-              // answer text input
-              "text": "",
-              //
-              "sequence": 1
-            }
-          ],
-          "column": [
-            {
-              "id": generateId(),
-              "text": "",
-              "sequence": 1
-            }
-          ]
-        },
-        "sequence": 0,
-        "randomize": true,
-        "include_other": false
-      }, () => this.props.handleDelete(handleDeleteSequence));
+      this.resetState(handleDeleteSequence);
   }
 
   render() {
@@ -387,10 +386,22 @@ class Form extends React.Component {
             name="include_other"
             type="checkbox"
             checked={this.state.include_other}
-            onChange={this.handleIncludeOther} />
+            onChange={(e) => this.handleToggle(e)} />
             Allow multiple responses per row
           </label>
         </div>
+      </div>
+{/* RANDOMIZE ROWS? */}
+      <div className="RandomizeRows">
+        <label>
+          <input
+            name="randomize"
+            type="checkbox"
+            checked={this.state.randomize}
+            onChange={(e) => this.handleToggle(e)}
+          />
+            Randomize Rows
+        </label>
       </div>
 {/* ANSWER FOR COLUMN IF GRID LAYOUT SELECTED */}
       {column()}
