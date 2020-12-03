@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This application is a simple form builder that allows the user to perform the following operations:
+A simple form builder that allows the user to perform the following operations:
 - Add a new question
 - Delete a question
 - Order the questions
