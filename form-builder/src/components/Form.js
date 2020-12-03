@@ -1,5 +1,6 @@
 import React from 'react';
 import './Form.css';
+import shuffle from '../utilities/shuffle'
 
 // need to generate ID for question and initial input, and buttons
 let generateId = () => Math.floor(Math.random() * 100000) + 1;
@@ -48,22 +49,7 @@ class Form extends React.Component {
     this.addOption = this.addOption.bind(this);
     this.deleteOption = this.deleteOption.bind(this);
     this.handleQuestionDelete = this.handleQuestionDelete.bind(this);
-    this.shuffleFunc = this.shuffleFunc.bind(this);
     this.resetState = this.resetState.bind(this);
-  }
-
-  shuffleFunc(arr) {
-    let currentIndex = arr.length, tempValue, randomIndex;
-  
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      tempValue = arr[currentIndex];
-      arr[currentIndex] = arr[randomIndex];
-      arr[randomIndex] = tempValue;
-    }
-  
-    return arr;
   }
 
   handleLayout(e) {
@@ -253,7 +239,7 @@ class Form extends React.Component {
 
     if (randomize) {
       let rowsArray = [...row];
-      rowsArray = this.shuffleFunc(rowsArray)
+      rowsArray = shuffle(rowsArray)
       for (let i = 0; i < rowsArray.length; i++) {
         rowsArray[i].sequence = i+1;
       }

@@ -19,9 +19,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       questions: [],
-      max_allowed_questions: 10,
-      allowed_question_types: ["RADIO", "CHECK_BOX", "RADIO_GRID", "CHECK_BOX_GRID"],
-      currentSequenceView: 0
+      max_allowed_questions: null,
+      allowed_question_types: [],
+      currentSequenceView: null
     }
 
     this.addQuestion = this.addQuestion.bind(this);
@@ -29,6 +29,12 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleMove = this.handleMove.bind(this);
   };
+
+  componentDidMount() {
+    this.setState({
+      ...data
+    })
+  }
   
   addQuestion(newQuestion) {
     const questions = [...this.state.questions];
@@ -129,5 +135,9 @@ class App extends React.Component {
     );
   }
 }
+
+// App.defaultProps = {
+//   ...daga
+// }
 
 export default App;

@@ -1,4 +1,4 @@
-export const data = {
+const data = {
   "questions": [
     // START OF Object shape of ONE question
     {
@@ -19,7 +19,8 @@ export const data = {
         // image or video that was uploaded?
         "content_type": "image or video?"
       },
-      "options": [
+      "options": {
+        "row": [
       // an array of options / answers that the user has entered.
         {
           // Object shape of ONE answer option
@@ -31,6 +32,19 @@ export const data = {
           "sequence": 1
         }
       ],
+      "column": [
+        // an array of options / answers that the user has entered.
+          {
+            // Object shape of ONE answer option
+            // id of answer
+            "id": "generate an id for the answer",
+            // answer text input
+            "text": "Text entered by the user",
+            //
+            "sequence": 1
+          }
+        ],
+      },
       // which sequence order will this question be
       "sequence": 1,
       // should the rows be randomized?
@@ -45,3 +59,5 @@ export const data = {
 
   "allowed_question_types": ["RADIO", "CHECK_BOX", "RADIO_GRID", "CHECK_BOX_GRID"]
 };
+
+export default data;
