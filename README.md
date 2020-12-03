@@ -1,6 +1,6 @@
 # Form Builder for Survey Questions
 
-Please cd into the project directory `form-builder` and follow the README.md
+Please `cd` into the project directory `form-builder` and follow the README.md
 
 # Overview
 
