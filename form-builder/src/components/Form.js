@@ -9,7 +9,6 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: {
         // find new way to generate id
         "id": generateId(),
         // question text input
@@ -47,7 +46,6 @@ class Form extends React.Component {
   // randomize on submit
         "randomize": false,
         "include_other": false
-      },
     }
 
     this.handleLayout = this.handleLayout.bind(this);
@@ -64,18 +62,14 @@ class Form extends React.Component {
   handleLayout(e) {
     this.setState(prevState => ({
       ...prevState,
-      question: {
-        ...prevState.question,
-        type: e.target.value
-      }
+      type: e.target.value
     }));
   }
 
   handleInputChange(index, e) {
-    console.log(e.target.name, 'NAME INSIDE HANDLE INPUT CHANGE')
     let name = e.target.name; // row
 // entire row array
-    const items = [...this.state.question.options[name]];
+    const items = [...this.state.options[name]];
     // one item in the row array
     items[index].text = e.target.value;
 
@@ -84,22 +78,19 @@ class Form extends React.Component {
 
     console.log(items, 'ITEMS INSIDE HANDLE INPUT')
     if (name === 'row') {
-      opposite = [...this.state.question.options.column]
+      opposite = [...this.state.options.column]
       oppositeName = 'column';
     } else {
-      opposite = [...this.state.question.options.row]
+      opposite = [...this.state.options.row]
       oppositeName = 'row';
     }
 
     this.setState(prevState => ({
       ...prevState,
-      question: {
-        ...prevState.question,
-        options: {
-          ...prevState.options,
-          [name]: items,
-          [oppositeName]: opposite
-        }
+      options: {
+        ...prevState.options,
+        [name]: items,
+        [oppositeName]: opposite
       }
     }));
 
@@ -113,9 +104,9 @@ class Form extends React.Component {
     // if (e.target.name === 'row') {
       console.log('INSIDE ROW IF STATEMENT')
   // find a way to SPLICE it so that it adds right below the wanted area
-      const options = [...this.state.question.options[name]];
+      const options = [...this.state.options[name]];
       console.log('OPTIONS, inside add options', options)
-      const sequence = this.state.question.options[name].length + 1;
+      const sequence = this.state.options[name].length + 1;
       options.push({
         "id": generateId(),
         "text": "",
@@ -124,18 +115,15 @@ class Form extends React.Component {
 
       this.setState(prevState => ({
         ...prevState,
-        question: {
-          ...prevState.question,
-          options: {
-            ...prevState.question.options,
-            [name]: options
-          }
+        options: {
+          ...prevState.options,
+          [name]: options
         }
       }))
   }
 
   deleteOption(index, e) {
-    let options = this.state.question.options;
+    let options = this.state.options;
 
     let name = e.target.name;
     if (options[name].length === 1) return;
@@ -152,50 +140,41 @@ class Form extends React.Component {
     }
 
     if (name === 'row') {
-      opposite = [...this.state.question.options.column];
+      opposite = [...this.state.options.column];
       oppositeName = 'column';
     } else {
-      opposite = [...this.state.question.options.row];
+      opposite = [...this.state.options.row];
       oppositeName = 'row';
     }
 
     this.setState(prevState => ({
       ...prevState,
-      question: {
-        ...prevState.question,
         options: {
           ...prevState.options,
           [name]: optionsArray,
           [oppositeName]: opposite
         }
-      }
     }));
   }
 
   handleIncludeOther(e) {
-    let isChecked = this.state.question.include_other ? false : true;
+    let isChecked = this.state.include_other ? false : true;
     this.setState(prevState => ({
-      ...prevState,
-      question: {
-        ...prevState.question,
+        ...prevState,
         include_other: isChecked
-      }
     }));
   }
 
   onQuestionChange(e) {
     this.setState(prevState => ({
-      ...prevState,
-      question: {
-        ...prevState.question,
+        ...prevState,
         text: e.target.value
-      }
     }));
   }
 
   onFileChange(e) {
     let file = e.target.files[0];
-    let question = {...this.state.question};
+    let question = {...this.state};
 
     console.log(file, 'this is file')
 
@@ -208,15 +187,14 @@ class Form extends React.Component {
     }
 
     this.setState({
-      selectedFile: e.target.files[0],
-      question: question
+      // selectedFile: e.target.files[0],
+      media: question
     })
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { question } = this.state;
-    const { text, type, options } = this.state.question;
+    const { text, type, options } = this.state;
     const { row, column } = options;
     
     if (text.length < 5 || row.length === 0) {
@@ -237,10 +215,9 @@ class Form extends React.Component {
       }
     }
 
-    this.props.addQuestion(question);
+    this.props.addQuestion(this.state);
 
     this.setState({
-      question: {
         "id": generateId(),
         // question text input
         "text": "",
@@ -280,19 +257,8 @@ class Form extends React.Component {
         "sequence": 0,
         "randomize": true,
         "include_other": false
-      },
-    }, () => console.log(this.state, 'THIS STATE AFTER SUB'));
+      }, () => console.log(this.state, 'THIS STATE AFTER SUB'));
   }
-
-  // shouldComponentUpdate() {
-  //   console.log(this.props.viewQuestion, 'view question')
-  //   if (this.props.viewQuestion) {
-  //     this.setState(prevState => ({
-  //       ...prevState,
-  //       question: this.props.viewQuestion
-  //     }));
-  //   } 
-  // }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
@@ -317,7 +283,6 @@ class Form extends React.Component {
     handleDeleteSequence = sequence;
 
     this.setState({
-      question: {
         "id": generateId(),
         // question text input
         "text": "",
@@ -357,8 +322,7 @@ class Form extends React.Component {
         "sequence": 0,
         "randomize": true,
         "include_other": false
-      },
-    }, () => this.props.handleDelete(handleDeleteSequence));
+      }, () => this.props.handleDelete(handleDeleteSequence));
   }
 
   render() {
@@ -376,7 +340,7 @@ class Form extends React.Component {
     // on submit should generate an ID for this question
 
     let column = () => {
-      if (this.state.question.type === 'RADIO_GRID' || this.state.question.type === 'CHECK_BOX_GRID') {
+      if (this.state.type === 'RADIO_GRID' || this.state.type === 'CHECK_BOX_GRID') {
         return (
           <div className="ColumnOptionsWrapper">
             <div className="OptionsTitleWrapper">
@@ -384,7 +348,7 @@ class Form extends React.Component {
               <div className="VerticleDivider"></div>
               <button type="button">+ Bulk Answers</button>
             </div>
-            {this.state.question.options.column.map((option, index) => {
+            {this.state.options.column.map((option, index) => {
               return (
                 <div key={option.id} className="AnswerInputWrapper">
                   <div>Drag</div>
@@ -392,7 +356,7 @@ class Form extends React.Component {
                   <input
                     name="column"
                     type="text"
-                    value={this.state.question.options.column[index].text}
+                    value={this.state.options.column[index].text}
                     placeholder="Answer text here"
                     onChange={(e) => this.handleInputChange(index, e)}
                   >
@@ -415,7 +379,7 @@ class Form extends React.Component {
           <div className="LayoutSelectorWrapper">
             <select
               className="LayoutSelector"
-              value={this.state.question.type}
+              value={this.state.type}
               onChange={this.handleLayout}
             >
               {this.props.questionTypes.map(option => {
@@ -426,7 +390,7 @@ class Form extends React.Component {
           </div>
           <div className="VerticleDivider"></div>
           <div className="EditOptionWrapper">
-            <button type="button" onClick={() => this.handleQuestionDelete(this.state.question.sequence)}>Delete</button>
+            <button type="button" onClick={() => this.handleQuestionDelete(this.state.sequence)}>Delete</button>
           </div>
         </div>
 {/* QUESTION */}
@@ -435,7 +399,7 @@ class Form extends React.Component {
         <input
           type="text"
           name="question"
-          value={this.state.question.text}
+          value={this.state.text}
           placeholder="Question text here"
           onChange={this.onQuestionChange}
         >
@@ -451,14 +415,14 @@ class Form extends React.Component {
           <div className="VerticleDivider"></div>
           <button type="button">+ Bulk Answers</button>
         </div>
-          {this.state.question.options.row.map((option, index) => {
+          {this.state.options.row.map((option, index) => {
             return (
               <div key={option.id} className="AnswerInputWrapper">
                 <div>Drag</div>
                 <input
                   name="row"
                   type="text"
-                  value={this.state.question.options.row[index].text}
+                  value={this.state.options.row[index].text}
                   placeholder="Answer text here"
                   onChange={(e) => this.handleInputChange(index, e)}
                 >
@@ -474,7 +438,7 @@ class Form extends React.Component {
           <input
             name="include_other"
             type="checkbox"
-            checked={this.state.question.include_other}
+            checked={this.state.include_other}
             onChange={this.handleIncludeOther} />
             Allow multiple responses per row
           </label>
