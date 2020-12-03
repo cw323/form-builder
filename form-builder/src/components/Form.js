@@ -9,43 +9,34 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        // find new way to generate id
-        "id": generateId(),
-        // question text input
-        "text": "",
-        // type is selected from the drop down menu in the header? where it says "Select Grid?"
-        "type": "RADIO_GRID",
-        // option to upload a media in image or video form
-        "media": {
-          // id for media
-          "id": generateId(),
-          // url for media
-          "url": "",
-          // file name from upload
-          "file_name": "",
-          // image or video that was uploaded?
-          "content_type": ""
-        },
-        "options": {
-          "row": [
-            {
-              "id": generateId(),
-              "text": "",
-              "sequence": 1
-            }
-          ],
-          "column": [
-            {
-              "id": generateId(),
-              "text": "",
-              "sequence": 1
-            }
-          ]
-        },
-        "sequence": 1,
-  // randomize on submit
-        "randomize": false,
-        "include_other": false
+      id: generateId(),
+      text: "",
+      type: "RADIO_GRID",
+      media: {
+        id: generateId(),
+        url: "",
+        file_name: "",
+        content_type: ""
+      },
+      options: {
+        row: [
+          {
+            id: generateId(),
+            text: "",
+            sequence: 1
+          }
+        ],
+        column: [
+          {
+            id: generateId(),
+            text: "",
+            sequence: 1
+          }
+        ]
+      },
+      sequence: 1,
+      randomize: true,
+      include_other: false
     }
 
     this.handleLayout = this.handleLayout.bind(this);
@@ -67,16 +58,14 @@ class Form extends React.Component {
   }
 
   handleInputChange(index, e) {
-    let name = e.target.name; // row
-// entire row array
+    const { name, value } = e.target;
     const items = [...this.state.options[name]];
     // one item in the row array
-    items[index].text = e.target.value;
+    items[index].text = value;
 
     let opposite;
     let oppositeName;
 
-    console.log(items, 'ITEMS INSIDE HANDLE INPUT')
     if (name === 'row') {
       opposite = [...this.state.options.column]
       oppositeName = 'column';
@@ -97,41 +86,32 @@ class Form extends React.Component {
   }
 
   addOption(e) {
-    e.preventDefault();
-    console.log('inside ADD OPTIONd', e.target.name)
-    let name = e.target.name;
+    const { name } = e.target;
+    const options = [...this.state.options[name]];
+    const sequence = this.state.options[name].length + 1;
+    options.push({
+      "id": generateId(),
+      "text": "",
+      "sequence": sequence,
+    });
 
-    // if (e.target.name === 'row') {
-      console.log('INSIDE ROW IF STATEMENT')
-  // find a way to SPLICE it so that it adds right below the wanted area
-      const options = [...this.state.options[name]];
-      console.log('OPTIONS, inside add options', options)
-      const sequence = this.state.options[name].length + 1;
-      options.push({
-        "id": generateId(),
-        "text": "",
-        "sequence": sequence,
-      });
-
-      this.setState(prevState => ({
-        ...prevState,
-        options: {
-          ...prevState.options,
-          [name]: options
-        }
-      }))
+    this.setState(prevState => ({
+      ...prevState,
+      options: {
+        ...prevState.options,
+        [name]: options
+      }
+    }))
   }
 
   deleteOption(index, e) {
-    let options = this.state.options;
-
-    let name = e.target.name;
+    const { options } = this.state;
+    const { name } = e.target;
+    
     if (options[name].length === 1) return;
-    // update sequence
 
-    let optionsArray = [...options[name]];
+    const optionsArray = [...options[name]];
     optionsArray.splice(index, 1);
-
     let opposite;
     let oppositeName;
 
@@ -157,8 +137,8 @@ class Form extends React.Component {
     }));
   }
 
-  handleIncludeOther(e) {
-    let isChecked = this.state.include_other ? false : true;
+  handleIncludeOther() {
+    const isChecked = this.state.include_other ? false : true;
     this.setState(prevState => ({
         ...prevState,
         include_other: isChecked
@@ -166,20 +146,18 @@ class Form extends React.Component {
   }
 
   onQuestionChange(e) {
+    const { value } = e.target;
     this.setState(prevState => ({
         ...prevState,
-        text: e.target.value
+        text: value
     }));
   }
 
   onFileChange(e) {
-    let file = e.target.files[0];
-    let question = {...this.state};
-
-    console.log(file, 'this is file')
+    const file = e.target.files[0];
+    const question = {...this.state};
 
     question.media = {
-      // id I used last modified because it is unique or I can use generateId
       id: file.lastModified,
       url: file.webKitRelativePath,
       file_name: file.name,
@@ -187,7 +165,6 @@ class Form extends React.Component {
     }
 
     this.setState({
-      // selectedFile: e.target.files[0],
       media: question
     })
   }
@@ -218,68 +195,49 @@ class Form extends React.Component {
     this.props.addQuestion(this.state);
 
     this.setState({
-        "id": generateId(),
-        // question text input
-        "text": "",
-        // type is selected from the drop down menu in the header? where it says "Select Grid?"
-        "type": "RADIO_GRID",
-        // option to upload a media in image or video form
-        "media": {
-          // id for media
-          "id": 0,
-          // url for media
-          "url": "",
-          // file name from upload
-          "file_name": "",
-          // image or video that was uploaded?
-          "content_type": ""
+      id: generateId(),
+      text: "",
+      type: "RADIO_GRID",
+      media: {
+        id: generateId(),
+        url: "",
+        file_name: "",
+        content_type: ""
+      },
+      options: {
+        row: [
+          {
+            id: generateId(),
+            text: "",
+            sequence: 1
+          }
+        ],
+        column: [
+          {
+            id: generateId(),
+            text: "",
+            sequence: 1
+          }
+        ]
         },
-        "options": {
-          "row": [
-        // an array of options / answers that the user has entered.
-            {
-      
-              "id": generateId(),
-              // answer text input
-              "text": "",
-              //
-              "sequence": 1
-            }
-          ],
-          "column": [
-            {
-              "id": generateId(),
-              "text": "",
-              "sequence": 1
-            }
-          ]
-        },
-        "sequence": 0,
-        "randomize": true,
-        "include_other": false
-      }, () => console.log(this.state, 'THIS STATE AFTER SUB'));
+        sequence: 0,
+        randomize: true,
+        include_other: false
+      });
   }
 
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
+    const { viewQuestion } = this.props;
+    if (!viewQuestion) return;
 
-    if (!this.props.viewQuestion) {
-      return;
-    }
-
-    if (this.props.viewQuestion !== prevProps.viewQuestion) {
-      this.setState(prevState => ({
-        ...prevState,
-        question: this.props.viewQuestion
-      }));
+    if (viewQuestion !== prevProps.viewQuestion) {
+      this.setState({
+        ...viewQuestion
+      })
     }
   }
 
-  // componentWillUnmount() {
-
-  // }
   handleQuestionDelete(sequence) {
-    // this.props.handleDelete(sequence);
     handleDeleteSequence = sequence;
 
     this.setState({
@@ -326,20 +284,13 @@ class Form extends React.Component {
   }
 
   render() {
-    // console.log(this.state.question.options.row,'inside render')
-    // console.log(this.state.question.options, 'QUESTION OPTIONS')
-    // console.log(typeof this.state.question.options.row, 'row type', typeof this.state.question.options.column, 'column type')
-    // console.log(Array.isArray(this.state.question.options.row), Array.isArray(this.state.question.options.column))
     let disableButton = false;
 
     if (this.props.questionsLength === this.props.maxQuestions) {
       disableButton = true;
     }
 
-    // console.log(addQuestionButton)
-    // on submit should generate an ID for this question
-
-    let column = () => {
+    const column = () => {
       if (this.state.type === 'RADIO_GRID' || this.state.type === 'CHECK_BOX_GRID') {
         return (
           <div className="ColumnOptionsWrapper">
@@ -352,7 +303,6 @@ class Form extends React.Component {
               return (
                 <div key={option.id} className="AnswerInputWrapper">
                   <div>Drag</div>
-                  {/* input name not needed */}
                   <input
                     name="column"
                     type="text"
@@ -370,7 +320,6 @@ class Form extends React.Component {
         )
       }
     }
-    
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -383,7 +332,6 @@ class Form extends React.Component {
               onChange={this.handleLayout}
             >
               {this.props.questionTypes.map(option => {
-                // let text = option.replace('_');
                 return <option value={option}>Select {option}</option>;
               })}
             </select>
@@ -447,7 +395,6 @@ class Form extends React.Component {
 {/* ANSWER FOR COLUMN IF GRID LAYOUT SELECTED */}
       {column()}
 {/* BUTTON TO SAVE THE QUESTION FORM */}
-      {/* {addQuestionButton} */}
       <input type="submit" disabled={disableButton} value="+ Add Question"/>
     </form>
     );
