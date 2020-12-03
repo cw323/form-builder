@@ -1,6 +1,10 @@
 import React from 'react';
 import './Form.css';
-import shuffle from '../utilities/shuffle'
+import shuffle from '../../utilities/shuffle'
+import QuestionTypes from '../QuestionTypes/QuestionTypes';
+import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
+import RowOptions from '../RowOptions/RowOptions'
+import ColumnOptions from '../ColumnOptions/ColumnOptions';
 
 // need to generate ID for question and initial input, and buttons
 let generateId = () => Math.floor(Math.random() * 100000) + 1;
@@ -153,6 +157,7 @@ class Form extends React.Component {
 
   onQuestionChange(e) {
     const { value } = e.target;
+    console.log(value, 'value in on Question change')
     this.setState(prevState => ({
         ...prevState,
         text: value
@@ -275,37 +280,6 @@ class Form extends React.Component {
       disableButton = true;
     }
 
-    const column = () => {
-      if (this.state.type === 'RADIO_GRID' || this.state.type === 'CHECK_BOX_GRID') {
-        return (
-          <div className="ColumnOptionsWrapper">
-            <div className="OptionsTitleWrapper">
-              <h1>Column Options</h1>
-              <div className="VerticleDivider"></div>
-              <button type="button">+ Bulk Answers</button>
-            </div>
-            {this.state.options.column.map((option, index) => {
-              return (
-                <div key={option.id} className="AnswerInputWrapper">
-                  <div>Drag</div>
-                  <input
-                    name="column"
-                    type="text"
-                    value={this.state.options.column[index].text}
-                    placeholder="Answer text here"
-                    onChange={(e) => this.handleInputChange(index, e)}
-                  >
-                  </input>
-                  <button name="column" type="button" onClick={this.addOption}>Add</button>
-                  <button name="column" type="button" onClick={(e) => this.deleteOption(index, e)}>Delete</button>
-                </div>
-            )
-          })}
-          </div>
-        )
-      }
-    }
-
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="HeaderBar">
@@ -317,7 +291,7 @@ class Form extends React.Component {
               onChange={this.handleLayout}
             >
               {this.props.questionTypes.map(option => {
-                return <option value={option}>Select {option}</option>;
+                return <QuestionTypes option={option} />;
               })}
             </select>
           </div>
@@ -327,70 +301,29 @@ class Form extends React.Component {
           </div>
         </div>
 {/* QUESTION */}
-      <div className="QuestionWrapper">
-        <h1>Enter Your Question</h1>
-        <input
-          type="text"
-          name="question"
-          value={this.state.text}
-          placeholder="Question text here"
-          onChange={this.onQuestionChange}
-        >
-        </input>
-{/* add file type */}
-        <input className="FileUpload" type="file" onChange={this.onFileChange} /> 
-      </div>
-
-{/* ANSWERS OPTIONS */}
-      <div className="RowOptionsWrapper">
-        <div className="OptionsTitleWrapper">
-          <h1>Row Options</h1>
-          <div className="VerticleDivider"></div>
-          <button type="button">+ Bulk Answers</button>
-        </div>
-          {this.state.options.row.map((option, index) => {
-            return (
-              <div key={option.id} className="AnswerInputWrapper">
-                <div>Drag</div>
-                <input
-                  name="row"
-                  type="text"
-                  value={this.state.options.row[index].text}
-                  placeholder="Answer text here"
-                  onChange={(e) => this.handleInputChange(index, e)}
-                >
-                </input>
-                <button name="row" type="button" onClick={this.addOption}>Add</button>
-                <button name="row" type="button" onClick={(e) => this.deleteOption(index, e)}>Delete</button>
-              </div>
-            )
-          })}
-{/* CHECKBOX FOR ROW ANSWERS */}
-        <div className="AllowMultipleResponses">
-        <label>
-          <input
-            name="include_other"
-            type="checkbox"
-            checked={this.state.include_other}
-            onChange={(e) => this.handleToggle(e)} />
-            Allow multiple responses per row
-          </label>
-        </div>
-      </div>
-{/* RANDOMIZE ROWS? */}
-      <div className="RandomizeRows">
-        <label>
-          <input
-            name="randomize"
-            type="checkbox"
-            checked={this.state.randomize}
-            onChange={(e) => this.handleToggle(e)}
-          />
-            Randomize Rows
-        </label>
-      </div>
+      <EnterYourQuestion 
+        value={this.state.text}
+        onQuestionChange={this.onQuestionChange}
+        onFileChange={this.onFileChange}
+      />
+{/* ROW ANSWERS OPTIONS */}
+      <RowOptions
+        row={this.state.options.row}
+        handleInputChange={this.handleInputChange}
+        addOption={this.addOption}
+        deleteOption={this.deleteOption}
+        handleToggle={this.handleToggle}
+        includeOther={this.state.include_other}
+        randomize={this.state.randomize}
+      />
 {/* ANSWER FOR COLUMN IF GRID LAYOUT SELECTED */}
-      {column()}
+      <ColumnOptions
+        type={this.state.type}
+        column={this.state.options.column}
+        handleInputChange={this.handleInputChange}
+        addOption={this.addOption}
+        deleteOption={this.deleteOption}
+      />
 {/* BUTTON TO SAVE THE QUESTION FORM */}
       <input type="submit" disabled={disableButton} value="+ Add Question"/>
     </form>
@@ -399,6 +332,3 @@ class Form extends React.Component {
 }
 
 export default Form;
-
-
-

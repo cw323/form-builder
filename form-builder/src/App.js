@@ -1,7 +1,8 @@
 import React from 'react';
 import "./App.css";
-import Form from './components/Form';
+import Form from './components/Form/Form';
 import data from './data';
+import ListOfQuestions from './components/ListOfQuestions/ListOfQuestions';
 
 const Footer = () => {
   //
@@ -105,7 +106,7 @@ class App extends React.Component {
   render() {
     let questionsList = this.state.questions.map((question, index) => {
       return (
-        <div>
+        <div key={question.id}>
           <div onClick={() => this.selectQuestion(index)}>
             Question {index + 1}: {question.text}
           </div>
@@ -129,8 +130,12 @@ class App extends React.Component {
         {/* <Footer /> */}
 
         {JSON.stringify(this.state)}
-        <h1>List of Questions</h1>
-          <h2>{questionsList}</h2>
+        
+          <ListOfQuestions
+            questions={this.state.questions}
+            selectQuestion={this.selectQuestion}
+            handleMove={this.handleMove}
+          />
       </div>
     );
   }
