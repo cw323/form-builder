@@ -14,29 +14,15 @@ class App extends React.Component {
       currentSequenceView: null
     }
 
-    this.addQuestion = this.addQuestion.bind(this);
-    this.selectQuestion = this.selectQuestion.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleMove = this.handleMove.bind(this);
+    this.addQuestion = this.addQuestion.bind(this);
+    this.selectQuestion = this.selectQuestion.bind(this);
   };
 
   componentDidMount() {
     this.setState({
       ...data
-    })
-  }
-  
-  addQuestion(newQuestion) {
-    const questions = [...this.state.questions];
-    const sequence = questions.length + 1;
-    newQuestion.sequence = sequence;
-    questions.push(newQuestion);
-    this.setState({questions: questions});
-  }
-
-  selectQuestion(index) {
-    this.setState({
-      currentSequenceView: index + 1
     })
   }
 
@@ -89,6 +75,20 @@ class App extends React.Component {
     this.setState({
       questions: questionsArray,
       currentSequenceView: newSequence
+    })
+  }
+
+  addQuestion(newQuestion) {
+    const questions = [...this.state.questions];
+    const sequence = questions.length + 1;
+    newQuestion.sequence = sequence;
+    questions.push(newQuestion);
+    this.setState({questions: questions});
+  }
+
+  selectQuestion(index) {
+    this.setState({
+      currentSequenceView: index + 1
     })
   }
 
