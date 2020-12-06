@@ -1,4 +1,7 @@
 import React from 'react';
+import InputBar from '../InputBar/InputBar';
+import CheckBox from '../CheckBox/CheckBox';
+
 import './RowOptions.css';
 
 const RowOptions = ({ row, handleInputChange, addOption, deleteOption, handleToggle, includeOther, randomize }) => (
@@ -11,12 +14,12 @@ const RowOptions = ({ row, handleInputChange, addOption, deleteOption, handleTog
     {row.map((option, index) => (
       <div key={option.id} className="AnswerInputWrapper">
         {/* <div>Drag</div> */}
-        <input
+        <InputBar
           name="row"
-          type="text"
           value={row[index].text}
           placeholder="Answer text here"
-          onChange={(e) => handleInputChange(index, e)}
+          index={index}
+          handleInputChange={handleInputChange}
         />
         <button id="AddButton" name="row" type="button" onClick={addOption}>
           Add
@@ -26,28 +29,6 @@ const RowOptions = ({ row, handleInputChange, addOption, deleteOption, handleTog
         </button>
       </div>
         ))}
-    <div className="AllowMultipleResponses">
-      <label>
-        <input
-          name="include_other"
-          type="checkbox"
-          checked={includeOther}
-          onChange={(e) => handleToggle(e)}
-        />
-        Allow multiple responses per row
-      </label>
-    </div>
-    <div className="RandomizeRows">
-      <label>
-        <input
-          name="randomize"
-          type="checkbox"
-          checked={randomize}
-          onChange={(e) => handleToggle(e)}
-        />
-        Randomize Rows
-      </label>
-    </div>
   </div>
   );
 

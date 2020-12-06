@@ -1,4 +1,6 @@
 import React from 'react';
+import InputBar from '../InputBar/InputBar';
+
 import './ColumnOptions.css';
 
 const ColumnOptions = ({ type, column, handleInputChange, addOption, deleteOption }) => {
@@ -13,12 +15,12 @@ const ColumnOptions = ({ type, column, handleInputChange, addOption, deleteOptio
         {column.map((option, index) => (
           <div key={option.id} className="AnswerInputWrapper">
             {/* <div>Drag</div> */}
-            <input
+            <InputBar
               name="column"
-              type="text"
               value={column[index].text}
               placeholder="Answer text here"
-              onChange={(e) => handleInputChange(index, e)}
+              index={index}
+              handleInputChange={handleInputChange}
             />
             <button id="AddButton" name="column" type="button" onClick={addOption}>
               Add
