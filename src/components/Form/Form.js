@@ -1,5 +1,4 @@
 import React from 'react';
-import './Form.css';
 import shuffle from '../../utilities/shuffle';
 import inputCheck from '../../utilities/inputCheck';
 import generateId from '../../utilities/generateId';
@@ -8,6 +7,7 @@ import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
 import CheckBox from '../CheckBox/CheckBox';
 import OptionsBlock from '../OptionsBlock/OptionsBlock';
 
+import './Form.css';
 
 let handleDeleteSequence;
 
@@ -200,14 +200,20 @@ class Form extends React.Component {
   }
 
   addOption(e) {
-    const { name } = e.target;
+    const { name, id } = e.target;
     const options = [...this.state.options[name]];
-    const sequence = this.state.options[name].length + 1;
-    options.push({
-      "id": generateId(),
-      "text": '',
-      "sequence": sequence,
-    });
+    let sequence = this.state.options[name].length + 1;
+    let num = 1;
+    
+    if (id === 'BulkButton') num = 5;
+
+    for (let i = 0; i < num; i++) {
+      options.push({
+        id: generateId(),
+        text: '',
+        sequence: sequence + i,
+      });
+    };
 
     this.setState(prevState => ({
       ...prevState,

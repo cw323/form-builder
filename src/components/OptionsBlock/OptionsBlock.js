@@ -9,7 +9,12 @@ const OptionsBlock = ({ title, position, positionOptions, handleInputChange, add
     <div className="OptionsTitleWrapper">
       <h3>{title}</h3>
       <div className="VerticalDivider" />
-      <button id="BulkButton" type="button">+ Bulk Answers</button>
+      <Button
+        id="BulkButton"
+        positionName={position}
+        handleClick={addOption}
+        label="+ Bulk Answers"
+      />
     </div>
     {positionOptions.map((option, index) => (
       <div key={option.id} className="OptionInputWrapper">
