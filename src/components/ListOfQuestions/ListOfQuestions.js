@@ -6,10 +6,7 @@ const ListOfQuestions = ({ questions, selectQuestion, handleMove }) => {
     <div key={question.id}>
       <div className="SelectQuestion" onClick={() => selectQuestion(index)}>
         <div>
-          Question
-          {index + 1}
-          :
-          {question.text}
+          Question {index + 1}: {question.text}
         </div>
       </div>
       <button name="up" type="button" onClick={(e) => handleMove(index, e)}>Move Up</button>
