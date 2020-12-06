@@ -30,17 +30,17 @@ input[type=submit] {
   border-radius: 5px;
 }
 
-#bulkButton {
+#BulkButton {
   border: none;
   background-color: transparent;
 }
 
-#bulkButton:focus {
+#BulkButton:focus {
   outline: none;
   box-shadow: none;
 }
 
-#bulkButton:hover {
+#BulkButton:hover {
   cursor: pointer;
 }
 

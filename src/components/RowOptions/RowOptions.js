@@ -6,7 +6,7 @@ const RowOptions = ({ row, handleInputChange, addOption, deleteOption, handleTog
       <div className="OptionsTitleWrapper">
         <h3>Row Options</h3>
         <div className="VerticalDivider"></div>
-        <button id="bulkButton" type="button">+ Bulk Answers</button>
+        <button id="BulkButton" type="button">+ Bulk Answers</button>
       </div>
       {row.map((option, index) => {
         return (

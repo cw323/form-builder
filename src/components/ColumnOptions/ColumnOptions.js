@@ -7,7 +7,7 @@ const ColumnOptions = ({ type, column, handleInputChange, addOption, deleteOptio
           <div className="OptionsTitleWrapper">
           <div className="VerticalDivider"></div>
             <h3>Column Options</h3>
-            <button id="bulkButton" type="button">+ Bulk Answers</button>
+            <button id="BulkButton" type="button">+ Bulk Answers</button>
           </div>
           {column.map((option, index) => {
             return (
