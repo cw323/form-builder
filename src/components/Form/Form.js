@@ -5,8 +5,6 @@ import inputCheck from '../../utilities/inputCheck';
 import generateId from '../../utilities/generateId';
 import QuestionTypes from '../QuestionTypes/QuestionTypes';
 import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
-import RowOptions from '../RowOptions/RowOptions';
-import ColumnOptions from '../ColumnOptions/ColumnOptions';
 import CheckBox from '../CheckBox/CheckBox';
 import OptionsBlock from '../OptionsBlock/OptionsBlock';
 
