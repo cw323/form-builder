@@ -6,7 +6,7 @@ const inputCheck = (text, type, row, column) => {
 
   for (let i = 0; i < row.length; i++) {
     if (row[i].text === '') {
-      alert('Please fill in or delete answer options input box.')
+      alert('Please fill in or delete answer options input box.');
       return false;
     }
   }
@@ -14,7 +14,7 @@ const inputCheck = (text, type, row, column) => {
   if (type === "RADIO_GRID" || type === "CHECK_BOX_GRID") {
     for (let i = 0; i < column.length; i++) {
       if (column[i].text === '') {
-        alert('Please fill in answer options input or delete answer option.')
+        alert('Please fill in answer options input or delete answer option.');
         return false;
       }
     }

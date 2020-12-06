@@ -1,5 +1,7 @@
 const shuffle = (arr) => {
-  let currentIndex = arr.length, tempValue, randomIndex;
+  let currentIndex = arr.length;
+  let tempValue;
+  let randomIndex;
 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
