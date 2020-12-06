@@ -1,5 +1,8 @@
 import React from 'react';
 import InputBar from '../InputBar/InputBar';
+import Button from '../Button/Button';
+
+import './OptionsBlock.css';
 
 const OptionsBlock = ({ title, position, positionOptions, handleInputChange, addOption, deleteOption }) => (
   <div className="OptionsBlockWrapper">
@@ -9,7 +12,7 @@ const OptionsBlock = ({ title, position, positionOptions, handleInputChange, add
       <button id="BulkButton" type="button">+ Bulk Answers</button>
     </div>
     {positionOptions.map((option, index) => (
-      <div key={option.id} className="AnswerInputWrapper">
+      <div key={option.id} className="OptionInputWrapper">
         {/* <div>Drag</div> */}
         <InputBar
           name={position}
@@ -18,12 +21,19 @@ const OptionsBlock = ({ title, position, positionOptions, handleInputChange, add
           index={index}
           handleInputChange={handleInputChange}
         />
-        <button id="AddButton" name={position} type="button" onClick={addOption}>
-          Add
-        </button>
-        <button id="DeleteButton" name={position} type="button" onClick={(e) => deleteOption(index, e)}>
-          Delete
-        </button>
+        <Button
+          id="AddButton"
+          positionName={position}
+          handleClick={addOption}
+          label="Add"
+        />
+        <Button
+          id="DeleteButton"
+          positionName={position}
+          index={index}
+          handleClick={deleteOption}
+          label="Delete"
+        />
       </div>
     ))}
   </div>

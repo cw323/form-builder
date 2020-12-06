@@ -68,7 +68,7 @@ class Form extends React.Component {
     }
   }
 
-  handleInputChange(index, e) {
+  handleInputChange(e, index) {
     const { name, value } = e.target;
     const items = [...this.state.options[name]];
     items[index].text = value;
@@ -166,7 +166,7 @@ class Form extends React.Component {
     }
   }
 
-  deleteOption(index, e) {
+  deleteOption(e, index) {
     const { options } = this.state;
     const { name } = e.target;
     

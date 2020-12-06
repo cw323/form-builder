@@ -1,0 +1,9 @@
+.OptionsTitleWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.OptionInputWrapper {
+  display: flex;
+  flex-direction: row;
+}

@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   handleDelete(sequence) {
-    let questions = [...this.state.questions];
+    const questions = [...this.state.questions];
     questions.splice(sequence-1, 1);
 
     for (let i = 0; i < questions.length; i++) {
@@ -40,7 +40,7 @@ class App extends React.Component {
     })
   }
 
-  handleMove(index, e) {
+  handleMove(e, index) {
     const { name } = e.target;
     const { questions, currentSequenceView } = this.state;
 

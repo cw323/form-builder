@@ -22,8 +22,7 @@
       "react-app",
       "react-app/jest"
     ],
-    "parserOptions":
-    {
+    "parserOptions": {
       "ecmaVersion": 2020
     }
   },

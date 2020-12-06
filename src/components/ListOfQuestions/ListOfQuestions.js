@@ -9,8 +9,8 @@ const ListOfQuestions = ({ questions, selectQuestion, handleMove }) => {
           Question {index + 1}: {question.text}
         </div>
       </div>
-      <button name="up" type="button" onClick={(e) => handleMove(index, e)}>Move Up</button>
-      <button name="down" type="button" onClick={(e) => handleMove(index, e)}>Move Down</button>
+      <button name="up" type="button" onClick={(e) => handleMove(e, index)}>Move Up</button>
+      <button name="down" type="button" onClick={(e) => handleMove(e, index)}>Move Down</button>
     </div>
     ));
 
