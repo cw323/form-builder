@@ -5,3 +5,7 @@
 .Button:hover {
   cursor: pointer;
 }
+
+.BulkButton {
+  pointer-events: none;
+}
