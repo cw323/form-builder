@@ -8,6 +8,8 @@ import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
 import RowOptions from '../RowOptions/RowOptions';
 import ColumnOptions from '../ColumnOptions/ColumnOptions';
 import CheckBox from '../CheckBox/CheckBox';
+import OptionsBlock from '../OptionsBlock/OptionsBlock';
+
 
 let handleDeleteSequence;
 
@@ -262,6 +264,22 @@ class Form extends React.Component {
       disableButton = true;
     }
 
+    const column = () => {
+      if (this.state.type === "RADIO_GRID" || this.state.type === "CHECK_BOX_GRID") {
+        return (
+          <OptionsBlock
+            title="Column Options"
+            position="column"
+            positionOptions={this.state.options.column}
+            handleInputChange={this.handleInputChange}
+            addOption={this.addOption}
+            deleteOption={this.deleteOption}
+          />
+        );
+      } 
+        return null;
+    }
+
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="HeaderBar">
@@ -285,35 +303,28 @@ class Form extends React.Component {
           onQuestionChange={this.onQuestionChange}
           onFileChange={this.onFileChange}
         />
-        <RowOptions
-          row={this.state.options.row}
+        <OptionsBlock
+          title="Row Options"
+          position="row"
+          positionOptions={this.state.options.row}
           handleInputChange={this.handleInputChange}
           addOption={this.addOption}
           deleteOption={this.deleteOption}
-          handleToggle={this.handleToggle}
-          includeOther={this.state.include_other}
-          randomize={this.state.randomize}
         />
         <CheckBox
           name="include_other"
-          checked={this.includeOther}
+          checked={this.state.includeOther}
           handleToggle={this.handleToggle}
           label="Allow multiple responses per row"
         />
         <CheckBox
           name="randomize"
-          checked={this.randomize}
+          checked={this.state.randomize}
           handleToggle={this.handleToggle}
           label="Randomize Rows"
         />
         {/* ANSWER FOR COLUMN IF GRID LAYOUT SELECTED */}
-        <ColumnOptions
-          type={this.state.type}
-          column={this.state.options.column}
-          handleInputChange={this.handleInputChange}
-          addOption={this.addOption}
-          deleteOption={this.deleteOption}
-        />
+        {column()}
         {/* BUTTON TO SAVE THE QUESTION FORM */}
         <input type="submit" disabled={disableButton} value="+ Add Question" />
       </form>
