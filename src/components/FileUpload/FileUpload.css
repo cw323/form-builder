@@ -1,0 +1,16 @@
+.FileUpload {
+  margin-left: 8px;
+}
+
+#FileInput {
+  display: none;
+}
+
+label:hover {
+  cursor: pointer;
+}
+
+.FileIcon {
+  width: 24px;
+  height: 24px;
+}

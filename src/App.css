@@ -4,14 +4,16 @@
 
 .Title {
   margin-left: 40px;
+  color: rgb(97, 97, 99);
 }
 
 .FormWrapper {
-  border: 3px solid black;
+  border: 3px solid rgb(255, 255, 255);
   padding: 30px;
   margin: 40px;
   border-radius: 10px;
   width: 100%;
+  background-color: rgb(255, 255, 255);
 }
 
 .ListAndFormWrapper {

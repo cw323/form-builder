@@ -200,7 +200,10 @@ class Form extends React.Component {
   }
 
   addOption(e) {
+    console.log(e.target, 'this is e.target')
     const { name, id } = e.target;
+    console.log(name, 'THIS IS NAME')
+    console.log([...this.state.options[name]], 'OPTION NAME')
     const options = [...this.state.options[name]];
     let sequence = this.state.options[name].length + 1;
     let num = 1;

@@ -1,6 +1,8 @@
 import React from 'react';
 import InputBar from '../InputBar/InputBar';
 import Button from '../Button/Button';
+import { GrAddCircle } from 'react-icons/gr';
+import { RiDeleteBinLine } from 'react-icons/ri';
 
 import './OptionsBlock.css';
 
@@ -27,17 +29,17 @@ const OptionsBlock = ({ title, position, positionOptions, handleInputChange, add
           handleInputChange={handleInputChange}
         />
         <Button
-          id="AddButton"
+          id="AddDeleteButton"
           positionName={position}
           handleClick={addOption}
-          label="Add"
+          icon={<GrAddCircle className="Icon" />}
         />
         <Button
-          id="DeleteButton"
+          id="AddDeleteButton"
           positionName={position}
           index={index}
           handleClick={deleteOption}
-          label="Delete"
+          icon={<RiDeleteBinLine className="Icon" />}
         />
       </div>
     ))}

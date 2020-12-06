@@ -2,3 +2,7 @@
   cursor: pointer;
   background-color: rgb(226, 226, 226);
 }
+
+.ListOfQuestionsWrapper {
+  color: rgb(97, 97, 99);
+}

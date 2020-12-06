@@ -1,0 +1,7 @@
+.IconWrapper {
+  pointer-events: none;
+}
+
+.Button:hover {
+  cursor: pointer;
+}
