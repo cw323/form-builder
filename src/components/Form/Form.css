@@ -3,3 +3,20 @@
   flex-direction: row;
   justify-content: flex-end;
 }
+
+.DeleteQuestionButton {
+  border: none;
+  background-color: transparent;
+  width: 24px;
+  height: 14px;
+  margin-top: 4px;
+  color: rgb(121, 122, 128);
+  border-left: grey 1px solid;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.TitleAndFormWrapper {
+  width: 100%;
+  max-width: 1080px;
+}

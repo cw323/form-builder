@@ -4,10 +4,10 @@ import QuestionTypes from '../QuestionTypes/QuestionTypes';
 import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
 import CheckBox from '../CheckBox/CheckBox';
 import OptionsBlock from '../OptionsBlock/OptionsBlock';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 
 import './Form.css';
 
-// make this into state
 let handleDeleteSequence;
 
 class Form extends React.Component {
@@ -199,7 +199,6 @@ class Form extends React.Component {
   }
 
   addOption(e) {
-    console.log(e.target, 'this is e.target')
     const { name, id } = e.target;
     const options = [...this.state.options[name]];
     let sequence = this.state.options[name].length + 1;
@@ -262,7 +261,6 @@ class Form extends React.Component {
   }
 
   render() {
-    // add to state
     let disableButton = false;
 
     if (this.props.questionsLength === this.props.maxQuestions) {
@@ -299,7 +297,9 @@ class Form extends React.Component {
           </div>
           <div className="VerticleDivider" />
           <div className="EditOptionWrapper">
-            <button type="button" onClick={() => this.handleQuestionDelete(this.state.sequence)}>Delete Question</button>
+            <button className="DeleteQuestionButton" type="button" onClick={() => this.handleQuestionDelete(this.state.sequence)}>
+              <BsThreeDotsVertical className="DeleteQuestionIcon" />
+            </button>
           </div>
         </div>
         <EnterYourQuestion 

@@ -12,7 +12,6 @@
   padding: 30px;
   margin: 40px;
   border-radius: 10px;
-  width: 100%;
   background-color: rgb(255, 255, 255);
 }
 
@@ -24,4 +23,7 @@
 .QuestionsList {
   display: flex;
   flex-direction: column;
+  width: 280px;
+  margin-right: 20px;
+  overflow-wrap: break-word;
 }
