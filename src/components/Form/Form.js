@@ -1,8 +1,5 @@
 import React from 'react';
-// import utilities
-import shuffle from '../../utilities/shuffle';
-import inputCheck from '../../utilities/inputCheck';
-import generateId from '../../utilities/generateId';
+import { shuffle, inputCheck, generateId } from '../../utilities';
 import QuestionTypes from '../QuestionTypes/QuestionTypes';
 import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
 import CheckBox from '../CheckBox/CheckBox';
