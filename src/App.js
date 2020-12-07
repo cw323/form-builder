@@ -12,7 +12,7 @@ class App extends React.Component {
       questions: [],
       max_allowed_questions: null,
       allowed_question_types: [],
-      currentSequenceView: null,
+      currentSequenceView: 0,
     }
 
     this.handleDelete = this.handleDelete.bind(this);
