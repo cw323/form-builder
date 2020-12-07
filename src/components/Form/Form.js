@@ -285,7 +285,6 @@ class Form extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="HeaderBar">
-          {/* <div>...</div> */}
           <div className="LayoutSelectorWrapper">
             <select
               className="LayoutSelector"

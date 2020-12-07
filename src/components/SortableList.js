@@ -6,7 +6,7 @@ const SortableList = SortableContainer(({ items, selectQuestion }) => {
   return (
     <ul>
       {items.map((item, index) => (
-        <div className="" onClick={() => selectQuestion(index)}>
+        <div key={`item-${index}`} onClick={() => selectQuestion(index)}>
           <SortableItem key={`item-${index}`} index={index} item={item} />
         </div>
       ))}

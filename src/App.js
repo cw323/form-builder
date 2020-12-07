@@ -56,7 +56,6 @@ class App extends React.Component {
   }
 
   onSortEnd({oldIndex, newIndex}) {
-    console.log(oldIndex, newIndex, 'OLD AND NEW SEQUENCE')
     let move = arrayMove(this.state.questions, oldIndex, newIndex);
     
     for (let i = 0; i < move.length; i++) {

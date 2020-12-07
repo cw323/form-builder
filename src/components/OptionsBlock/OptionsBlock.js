@@ -20,7 +20,6 @@ const OptionsBlock = ({ title, position, positionOptions, handleInputChange, add
     </div>
     {positionOptions.map((option, index) => (
       <div key={option.id} className="OptionInputWrapper">
-        {/* <div>Drag</div> */}
         <InputBar
           name={position}
           value={positionOptions[index].text}
