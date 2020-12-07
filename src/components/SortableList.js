@@ -1,6 +1,6 @@
 import React from 'react';
 import { SortableContainer } from 'react-sortable-hoc';
-import SortableItem from './SortableItem';
+import SortableItem from './SortableItem/SortableItem';
 
 const SortableList = SortableContainer(({ items, selectQuestion }) => {
   return (
