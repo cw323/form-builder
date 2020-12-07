@@ -1,4 +1,5 @@
 import React from 'react';
+// import utilities
 import shuffle from '../../utilities/shuffle';
 import inputCheck from '../../utilities/inputCheck';
 import generateId from '../../utilities/generateId';
@@ -9,6 +10,7 @@ import OptionsBlock from '../OptionsBlock/OptionsBlock';
 
 import './Form.css';
 
+// make this into state
 let handleDeleteSequence;
 
 class Form extends React.Component {
@@ -202,8 +204,6 @@ class Form extends React.Component {
   addOption(e) {
     console.log(e.target, 'this is e.target')
     const { name, id } = e.target;
-    console.log(name, 'THIS IS NAME')
-    console.log([...this.state.options[name]], 'OPTION NAME')
     const options = [...this.state.options[name]];
     let sequence = this.state.options[name].length + 1;
     let num = 1;
@@ -265,26 +265,26 @@ class Form extends React.Component {
   }
 
   render() {
+    // add to state
     let disableButton = false;
 
     if (this.props.questionsLength === this.props.maxQuestions) {
       disableButton = true;
     }
 
-    const column = () => {
-      if (this.state.type === "RADIO_GRID" || this.state.type === "CHECK_BOX_GRID") {
-        return (
-          <OptionsBlock
-            title="Column Options"
-            position="column"
-            positionOptions={this.state.options.column}
-            handleInputChange={this.handleInputChange}
-            addOption={this.addOption}
-            deleteOption={this.deleteOption}
-          />
-        );
-      } 
-        return null;
+    let column = null;
+     
+    if (this.state.type === "RADIO_GRID" || this.state.type === "CHECK_BOX_GRID") {
+      column = (
+        <OptionsBlock
+          title="Column Options"
+          position="column"
+          positionOptions={this.state.options.column}
+          handleInputChange={this.handleInputChange}
+          addOption={this.addOption}
+          deleteOption={this.deleteOption}
+        />
+      );
     }
 
     return (
@@ -320,7 +320,7 @@ class Form extends React.Component {
         />
         <CheckBox
           name="include_other"
-          checked={this.state.includeOther}
+          checked={this.state.include_other}
           handleToggle={this.handleToggle}
           label="Allow multiple responses per row"
         />
@@ -331,7 +331,7 @@ class Form extends React.Component {
           label="Randomize Rows"
         />
         {/* ANSWER FOR COLUMN IF GRID LAYOUT SELECTED */}
-        {column()}
+        {column}
         {/* BUTTON TO SAVE THE QUESTION FORM */}
         <input type="submit" disabled={disableButton} value="+ Add Question" />
       </form>

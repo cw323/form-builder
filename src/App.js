@@ -2,7 +2,8 @@ import React from 'react';
 import "./App.css";
 import Form from './components/Form/Form';
 import data from './data';
-import ListOfQuestions from './components/ListOfQuestions/ListOfQuestions';
+import arrayMove from 'array-move';
+import SortableList from './components/SortableList';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,13 +12,13 @@ class App extends React.Component {
       questions: [],
       max_allowed_questions: null,
       allowed_question_types: [],
-      currentSequenceView: null
+      currentSequenceView: null,
     }
 
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleMove = this.handleMove.bind(this);
     this.addQuestion = this.addQuestion.bind(this);
     this.selectQuestion = this.selectQuestion.bind(this);
+    this.onSortEnd = this.onSortEnd.bind(this);
   };
 
   componentDidMount() {
@@ -40,44 +41,6 @@ class App extends React.Component {
     })
   }
 
-  handleMove(e, index) {
-    const { name } = e.target;
-    const { questions, currentSequenceView } = this.state;
-
-    if ((index === 0 && name === 'up') || (index === questions.length-1 && name === 'down')) {
-      return;
-    }
-
-    const questionsArray = [...questions];
-    const deletedQuestion = questionsArray.splice(index, 1);
-    let newSequence;
-    let splice;
-
-    if (currentSequenceView) {
-      newSequence = 'up' ? currentSequenceView+1 : currentSequenceView-1;
-    }
-
-    if (name === 'up') {
-      splice = questionsArray.splice(index-1, 0, deletedQuestion[0])
-    }
-
-    if (name === 'down') {
-      splice = questionsArray.splice(index+1, 0, deletedQuestion[0]);
-    }
-
-    for (let i = 0; i < questionsArray.length; i++) {
-      questionsArray[i].sequence = i+1;
-      if (newSequence === i+1 && currentSequenceView) {
-        newSequence = questionsArray[i].sequence;
-      } 
-    }
-
-    this.setState({
-      questions: questionsArray,
-      currentSequenceView: newSequence
-    })
-  }
-
   addQuestion(newQuestion) {
     const questions = [...this.state.questions];
     const sequence = questions.length + 1;
@@ -92,15 +55,31 @@ class App extends React.Component {
     })
   }
 
+  onSortEnd({oldIndex, newIndex}) {
+    console.log(oldIndex, newIndex, 'OLD AND NEW SEQUENCE')
+    let move = arrayMove(this.state.questions, oldIndex, newIndex);
+    
+    for (let i = 0; i < move.length; i++) {
+      move[i].sequence = i + 1;
+    }
+
+    this.setState({
+      questions: move
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <div className="ListAndFormWrapper">
-          <ListOfQuestions
-                questions={this.state.questions}
-                selectQuestion={this.selectQuestion}
-                handleMove={this.handleMove}
-          />
+        <div className="ListAndFormWrapper"> 
+          <div className="QuestionsList">
+            <h1 className="Title">Survey</h1>
+            <SortableList
+              items={this.state.questions}
+              onSortEnd={this.onSortEnd}
+              selectQuestion={this.selectQuestion}
+            />
+          </div>
           <div className="TitleAndFormWrapper">
             <h1 className="Title">Setup Survey</h1>
             <div className="FormWrapper">
@@ -116,6 +95,7 @@ class App extends React.Component {
           </div>
         </div>
         <div>{JSON.stringify(this.state)}</div>
+        <div>LIST HERE</div>
       </div>
     );
   }

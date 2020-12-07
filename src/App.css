@@ -20,3 +20,8 @@
   display: flex;
   flex-direction: row;
 }
+          
+.QuestionsList {
+  display: flex;
+  flex-direction: column;
+}
