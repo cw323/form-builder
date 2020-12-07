@@ -1,8 +1,8 @@
 import React from 'react';
 import "./App.css";
-import arrayMove from 'array-move';
 import Form from './components/Form/Form';
 import data from './data';
+import arrayMove from 'array-move';
 import SortableList from './components/SortableList';
 
 class App extends React.Component {
@@ -28,36 +28,16 @@ class App extends React.Component {
   }
 
   handleDelete(sequence) {
-    const { questions } = this.state;
-    const prevQuestions = [...questions];
-    prevQuestions.splice(sequence - 1, 1);
+    const questions = [...this.state.questions];
+    questions.splice(sequence-1, 1);
 
-    for (let i = 0; i < prevQuestions.length; i += 1) {
-      prevQuestions[i].sequence = i + 1;
+    for (let i = 0; i < questions.length; i++) {
+      questions[i].sequence = i + 1;
     }
 
     this.setState({
       currentSequenceView: 0,
-      prevQuestions
-    })
-  }
-
-  onSortEnd({oldIndex, newIndex}) {
-    const { questions } = this.state;
-    const move = arrayMove(questions, oldIndex, newIndex);
-    
-    for (let i = 0; i < move.length; i += 1) {
-      move[i].sequence = i + 1;
-    }
-
-    this.setState({
-      questions: move
-    });
-  };
-
-  selectQuestion(index) {
-    this.setState({
-      currentSequenceView: index + 1
+      questions
     })
   }
 
@@ -68,6 +48,24 @@ class App extends React.Component {
     questions.push(newQuestion);
     this.setState({questions: questions});
   }
+
+  selectQuestion(index) {
+    this.setState({
+      currentSequenceView: index + 1
+    })
+  }
+
+  onSortEnd({oldIndex, newIndex}) {
+    let move = arrayMove(this.state.questions, oldIndex, newIndex);
+    
+    for (let i = 0; i < move.length; i++) {
+      move[i].sequence = i + 1;
+    }
+
+    this.setState({
+      questions: move
+    });
+  };
 
   render() {
     return (
