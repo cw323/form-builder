@@ -116,8 +116,8 @@ class Form extends React.Component {
     if (randomize) {
       let rowsArray = [...row];
       rowsArray = shuffle(rowsArray)
-      for (let i = 0; i < rowsArray.length; i++) {
-        rowsArray[i].sequence = i+1;
+      for (let i = 0; i < rowsArray.length; i += 1) {
+        rowsArray[i].sequence = i + 1;
       }
       changedState.options.row = rowsArray;
     }
@@ -206,7 +206,7 @@ class Form extends React.Component {
     
     if (id === 'BulkButton') num = 5;
 
-    for (let i = 0; i < num; i++) {
+    for (let i = 0; i < num; i += 1) {
       options.push({
         id: generateId(),
         text: '',

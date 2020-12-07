@@ -1,4 +1,5 @@
-export const shuffle = (arr) => {
+export const shuffle = (array) => {
+  const arr = [...array];
   let currentIndex = arr.length;
   let tempValue;
   let randomIndex;
@@ -12,7 +13,7 @@ export const shuffle = (arr) => {
   }
 
   return arr;
-}
+};
 
 export const inputCheck = (text, type, row, column) => {
   if (text.length < 5 || row.length === 0) {
@@ -28,7 +29,7 @@ export const inputCheck = (text, type, row, column) => {
   }
 
   if (type === "RADIO_GRID" || type === "CHECK_BOX_GRID") {
-    for (let i = 0; i < column.length; i++) {
+    for (let i = 0; i < column.length; i += 1) {
       if (column[i].text === '') {
         alert('Please fill in answer options input or delete answer option.');
         return false;
@@ -37,6 +38,6 @@ export const inputCheck = (text, type, row, column) => {
   }
 
   return true;
-}
+};
 
 export const generateId = () => Math.floor(Math.random() * 100000) + 1;

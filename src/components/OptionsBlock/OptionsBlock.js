@@ -1,8 +1,8 @@
 import React from 'react';
-import InputBar from '../InputBar/InputBar';
-import Button from '../Button/Button';
 import { GrAddCircle } from 'react-icons/gr';
 import { RiDeleteBinLine } from 'react-icons/ri';
+import InputBar from '../InputBar/InputBar';
+import Button from '../Button/Button';
 
 import './OptionsBlock.css';
 
