@@ -25,10 +25,7 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2020
-    }
+    ]
   },
   "browserslist": {
     "production": [
@@ -41,10 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^7.0.0",
-    "prettier": "2.2.1"
   }
 }
