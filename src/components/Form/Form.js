@@ -154,7 +154,6 @@ class Form extends React.Component {
     if (file !== undefined) {
       question.media = {
         id: generateId(),
-// check lastModified error
         url: file.lastModified,
         file_name: file.name,
         content_type: file.type,
@@ -301,9 +300,9 @@ class Form extends React.Component {
               <BsThreeDotsVertical />
             </div>
             <div className="DropDownMenuItems">
-              <button className="DeleteQuestionButton" type="button" onClick={() => this.handleQuestionDelete(this.state.sequence)}>
+              <div className="DeleteQuestion" onClick={() => this.handleQuestionDelete(this.state.sequence)}>
                 Delete Question
-              </button>
+              </div>
             </div>
           </div>
         </div>

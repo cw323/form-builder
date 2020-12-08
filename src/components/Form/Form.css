@@ -4,7 +4,7 @@
   justify-content: flex-end;
 }
 
-.DeleteQuestionButton {
+.DeleteQuestion {
   border: none;
   background-color: transparent;
   color: rgb(121, 122, 128);
@@ -52,17 +52,16 @@
   border-radius: 5px;
 }
 
-.DropDownMenuItems button {
+.DropDownMenuItems div {
   color: rgb(97, 97, 99);
   padding: 12px 0 12px 12px;
   text-decoration: none;
   display: block;
-  width: 100%;
   text-align: left;
   border-radius: 5px;
 }
 
-.DropDownMenuItems button:hover {
+.DropDownMenuItems div:hover {
   background-color: rgb(248, 248, 248);
 }
 
