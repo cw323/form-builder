@@ -134,6 +134,7 @@ class Form extends React.Component {
   }
 
   handleQuestionDelete(sequence) {
+    if (!sequence) alert('Please select a question to delete from the Survey list.');
     handleDeleteSequence = sequence;
     this.resetState(handleDeleteSequence);
   }
@@ -295,10 +296,15 @@ class Form extends React.Component {
             </select>
           </div>
           <div className="VerticleDivider" />
-          <div className="EditOptionWrapper">
-            <button className="DeleteQuestionButton" type="button" onClick={() => this.handleQuestionDelete(this.state.sequence)}>
-              <BsThreeDotsVertical className="DeleteQuestionIcon" />
-            </button>
+          <div className="DropDownMenu">
+            <div className="DropButton">
+              <BsThreeDotsVertical />
+            </div>
+            <div className="DropDownMenuItems">
+              <button className="DeleteQuestionButton" type="button" onClick={() => this.handleQuestionDelete(this.state.sequence)}>
+                Delete Question
+              </button>
+            </div>
           </div>
         </div>
         <EnterYourQuestion 
@@ -326,9 +332,7 @@ class Form extends React.Component {
           handleToggle={this.handleToggle}
           label="Randomize Rows"
         />
-        {/* ANSWER FOR COLUMN IF GRID LAYOUT SELECTED */}
         {column}
-        {/* BUTTON TO SAVE THE QUESTION FORM */}
         <input type="submit" disabled={disableButton} value="+ Add Question" />
       </form>
     );
