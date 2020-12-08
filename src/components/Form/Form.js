@@ -39,7 +39,7 @@ class Form extends React.Component {
           }
         ]
       },
-      sequence: 1,
+      sequence: 0,
       randomize: false,
       include_other: false
     }
@@ -250,7 +250,7 @@ class Form extends React.Component {
           }
         ]
       },
-      sequence: 1,
+      sequence: 0,
       randomize: false,
       include_other: false
     }, () => {
