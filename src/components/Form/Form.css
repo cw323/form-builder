@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  padding: 8px 0;
 }
 
 .DeleteQuestion {
@@ -76,15 +77,15 @@
 }
 
 .FormWrapper {
-  padding: 30px;
+  padding: 0 30px 30px;
   margin: 40px 20px 0;
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
 }
 
 .AddQuestionButton {
-  padding: 6px 12px;
-  margin: 18px 20px;
+  padding: 8px 12px;
+  margin: 30px 20px;
   border-style: solid;
   border-color: rgb(121, 122, 128);
   color: rgb(121, 122, 128);
@@ -101,4 +102,9 @@
 
 .CheckBoxesWrapper {
   margin-top: 16px;
+}
+
+.HorizontalDivider {
+  border: 1px solid rgb(248, 248, 248);
+  margin: 0px -30px;
 }

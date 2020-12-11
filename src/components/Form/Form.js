@@ -307,11 +307,13 @@ class Form extends React.Component {
               </div>
             </div>
           </div>
+          <div className="HorizontalDivider"></div>
           <EnterYourQuestion 
             value={this.state.text}
             onQuestionChange={this.onQuestionChange}
             onFileChange={this.onFileChange}
           />
+          <div className="HorizontalDivider"></div>
           <OptionsBlock
             title="Row Options"
             position="row"
