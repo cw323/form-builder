@@ -18,6 +18,8 @@
 
 .LayoutSelector {
   border: none;
+  color: rgb(121, 122, 128);
+  padding: 7px;
 }
 
 .LayoutSelector:focus {
@@ -71,4 +73,32 @@
 
 .DropDownMenu:hover .DropButton {
   background-color: transparent;
+}
+
+.FormWrapper {
+  padding: 30px;
+  margin: 40px 20px 0;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+.AddQuestionButton {
+  padding: 6px 12px;
+  margin: 18px 20px;
+  border-style: solid;
+  border-color: rgb(121, 122, 128);
+  color: rgb(121, 122, 128);
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+}
+
+.VerticalDividerHeader {
+  border-left: 1px solid rgb(121, 122, 128);
+  height: 12px;
+  margin-top: 9px;
+  margin-left: 18px;
+}
+
+.CheckBoxesWrapper {
+  margin-top: 16px;
 }

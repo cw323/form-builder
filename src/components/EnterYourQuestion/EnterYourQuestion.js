@@ -5,9 +5,9 @@ import InputBar from '../InputBar/InputBar';
 import './EnterYourQuestion.css';
 
 const EnterYourQuestion = ({ value, onQuestionChange, onFileChange }) => (
-  <div className="QuestionWrapper">
+  <div className="QuestionBlockWrapper">
     <h3>Enter Your Question</h3>
-    <div className="QuestionFileWrapper">
+    <div className="QuestionInputWrapper">
       <InputBar
         name="question"
         value={value}

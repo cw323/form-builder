@@ -10,7 +10,7 @@ const OptionsBlock = ({ title, position, positionOptions, handleInputChange, add
   <div className="OptionsBlockWrapper">
     <div className="OptionsTitleWrapper">
       <h3>{title}</h3>
-      <div className="VerticalDivider" />
+      <div className="VerticalDividerOptions" />
       <Button
         id="BulkButton"
         positionName={position}
@@ -18,30 +18,32 @@ const OptionsBlock = ({ title, position, positionOptions, handleInputChange, add
         label="+ Bulk Answers"
       />
     </div>
-    {positionOptions.map((option, index) => (
-      <div key={option.id} className="OptionInputWrapper">
-        <InputBar
-          name={position}
-          value={positionOptions[index].text}
-          placeholder="Answer text here"
-          index={index}
-          handleInputChange={handleInputChange}
-        />
-        <Button
-          id="AddDeleteButton"
-          positionName={position}
-          handleClick={addOption}
-          icon={<GrAddCircle className="Icon" />}
-        />
-        <Button
-          id="AddDeleteButton"
-          positionName={position}
-          index={index}
-          handleClick={deleteOption}
-          icon={<RiDeleteBinLine className="Icon" />}
-        />
-      </div>
-    ))}
+    <div className="OptionsInputWrapper">
+      {positionOptions.map((option, index) => (
+        <div key={option.id} className="OptionInputWrapper">
+          <InputBar
+            name={position}
+            value={positionOptions[index].text}
+            placeholder="Answer text here"
+            index={index}
+            handleInputChange={handleInputChange}
+          />
+          <Button
+            id="AddDeleteButton"
+            positionName={position}
+            handleClick={addOption}
+            icon={<GrAddCircle className="Icon" />}
+          />
+          <Button
+            id="AddDeleteButton"
+            positionName={position}
+            index={index}
+            handleClick={deleteOption}
+            icon={<RiDeleteBinLine className="Icon" />}
+          />
+        </div>
+      ))}
+    </div>
   </div>
 );
 

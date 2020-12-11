@@ -1,8 +1,8 @@
 import React from 'react';
 import { shuffle, inputCheck, generateId } from '../../utilities';
-import QuestionTypes from '../QuestionTypes/QuestionTypes';
+import QuestionTypes from '../QuestionTypes';
 import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
-import CheckBox from '../CheckBox/CheckBox';
+import CheckBox from '../CheckBox';
 import OptionsBlock from '../OptionsBlock/OptionsBlock';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
@@ -284,55 +284,59 @@ class Form extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="HeaderBar">
-          <div className="LayoutSelectorWrapper">
-            <select
-              className="LayoutSelector"
-              value={this.state.type}
-              onChange={this.handleLayout}
-            >
-              {this.props.questionTypes.map(option => <QuestionTypes key={option} option={option} />)}
-            </select>
-          </div>
-          <div className="VerticleDivider" />
-          <div className="DropDownMenu">
-            <div className="DropButton">
-              <BsThreeDotsVertical />
+        <div className="FormWrapper">
+          <div className="HeaderBar">
+            <div className="LayoutSelectorWrapper">
+              <select
+                className="LayoutSelector"
+                value={this.state.type}
+                onChange={this.handleLayout}
+              >
+                {this.props.questionTypes.map(option => <QuestionTypes key={option} option={option} />)}
+              </select>
             </div>
-            <div className="DropDownMenuItems">
-              <div className="DeleteQuestion" onClick={() => this.handleQuestionDelete(this.state.sequence)}>
-                Delete Question
+            <div className="VerticalDividerHeader" />
+            <div className="DropDownMenu">
+              <div className="DropButton">
+                <BsThreeDotsVertical />
+              </div>
+              <div className="DropDownMenuItems">
+                <div className="DeleteQuestion" onClick={() => this.handleQuestionDelete(this.state.sequence)}>
+                  Delete Question
+                </div>
               </div>
             </div>
           </div>
+          <EnterYourQuestion 
+            value={this.state.text}
+            onQuestionChange={this.onQuestionChange}
+            onFileChange={this.onFileChange}
+          />
+          <OptionsBlock
+            title="Row Options"
+            position="row"
+            positionOptions={this.state.options.row}
+            handleInputChange={this.handleInputChange}
+            addOption={this.addOption}
+            deleteOption={this.deleteOption}
+          />
+          <div className="CheckBoxesWrapper">
+            <CheckBox
+              name="include_other"
+              checked={this.state.include_other}
+              handleToggle={this.handleToggle}
+              label="Allow multiple responses per row"
+            />
+            <CheckBox
+              name="randomize"
+              checked={this.state.randomize}
+              handleToggle={this.handleToggle}
+              label="Randomize Rows"
+            />
+          </div>
+          {column}
         </div>
-        <EnterYourQuestion 
-          value={this.state.text}
-          onQuestionChange={this.onQuestionChange}
-          onFileChange={this.onFileChange}
-        />
-        <OptionsBlock
-          title="Row Options"
-          position="row"
-          positionOptions={this.state.options.row}
-          handleInputChange={this.handleInputChange}
-          addOption={this.addOption}
-          deleteOption={this.deleteOption}
-        />
-        <CheckBox
-          name="include_other"
-          checked={this.state.include_other}
-          handleToggle={this.handleToggle}
-          label="Allow multiple responses per row"
-        />
-        <CheckBox
-          name="randomize"
-          checked={this.state.randomize}
-          handleToggle={this.handleToggle}
-          label="Randomize Rows"
-        />
-        {column}
-        <input type="submit" disabled={disableButton} value="+ Add Question" />
+        <input className="AddQuestionButton" type="submit" disabled={disableButton} value="+ Add Question" />
       </form>
     );
   }

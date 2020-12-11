@@ -81,19 +81,17 @@ class App extends React.Component {
           </div>
           <div className="TitleAndFormWrapper">
             <h1 className="Title">Setup Survey</h1>
-            <div className="FormWrapper">
-              <Form
-                questionTypes={this.state.allowed_question_types}
-                addQuestion={this.addQuestion}
-                questionsLength={this.state.questions.length}
-                maxQuestions={this.state.max_allowed_questions}
-                viewQuestion={this.state.questions[this.state.currentSequenceView-1]}
-                handleDelete={this.handleDelete}
-              />
-            </div>
+            <Form
+              questionTypes={this.state.allowed_question_types}
+              addQuestion={this.addQuestion}
+              questionsLength={this.state.questions.length}
+              maxQuestions={this.state.max_allowed_questions}
+              viewQuestion={this.state.questions[this.state.currentSequenceView-1]}
+              handleDelete={this.handleDelete}
+            />
           </div>
         </div>
-        <div>{JSON.stringify(this.state)}</div>
+        <div className="JSON">{JSON.stringify(this.state)}</div>
       </div>
     );
   }

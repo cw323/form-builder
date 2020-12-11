@@ -1,6 +1,14 @@
+.OptionsBlockWrapper {
+  margin-top: 16px;
+}
+
 .OptionsTitleWrapper {
   display: flex;
   flex-direction: row;
+}
+
+.OptionsInputWrapper div:not(:first-child) {
+  margin-top: 14px;
 }
 
 .OptionInputWrapper {
@@ -29,4 +37,11 @@
   width: 22px;
   height: 22px;
   color: rgb(121, 122, 128);
+}
+
+.VerticalDividerOptions {
+  border-left: 1px solid rgb(121, 122, 128);
+  height: 12px;
+  margin-top: 24px;
+  margin-left: 18px;
 }

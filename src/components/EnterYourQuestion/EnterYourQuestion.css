@@ -1,4 +1,8 @@
-.QuestionFileWrapper {
+.QuestionBlockWrapper {
+  margin-bottom: 14px;
+}
+
+.QuestionInputWrapper {
   display: flex;
   flex-direction: row;
 }

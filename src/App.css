@@ -7,14 +7,6 @@
   color: rgb(97, 97, 99);
 }
 
-.FormWrapper {
-  border: 3px solid rgb(255, 255, 255);
-  padding: 30px;
-  margin: 40px 20px;
-  border-radius: 10px;
-  background-color: rgb(255, 255, 255);
-}
-
 .ListAndFormWrapper {
   display: flex;
   flex-direction: row;
@@ -27,4 +19,8 @@
   padding-right: 20px;
   overflow-wrap: break-word;
   background-color: rgb(255, 255, 255);
+}
+
+.JSON {
+  margin-top: 24px;
 }

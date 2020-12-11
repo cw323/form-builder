@@ -2,10 +2,19 @@
   pointer-events: none;
 }
 
+.BulkButton {
+  pointer-events: none;
+}
+
+.Button {
+  margin-left: 8px;
+}
+
 .Button:hover {
   cursor: pointer;
 }
 
-.BulkButton {
-  pointer-events: none;
+.Button:focus {
+  outline: none;
+  box-shadow: none;
 }
