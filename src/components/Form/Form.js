@@ -2,7 +2,7 @@ import React from 'react';
 import { shuffle, inputCheck, generateId } from '../../utilities';
 import QuestionTypes from '../QuestionTypes';
 import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
-import CheckBox from '../CheckBox';
+import CheckBox from '../CheckBox/CheckBox';
 import OptionsBlock from '../OptionsBlock/OptionsBlock';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
@@ -324,16 +324,18 @@ class Form extends React.Component {
           />
           <div className="CheckBoxesWrapper">
             <CheckBox
-              name="include_other"
-              checked={this.state.include_other}
-              handleToggle={this.handleToggle}
-              label="Allow multiple responses per row"
-            />
-            <CheckBox
               name="randomize"
               checked={this.state.randomize}
               handleToggle={this.handleToggle}
+              textClass="Randomize"
               label="Randomize Rows"
+            />
+            <CheckBox
+              name="include_other"
+              checked={this.state.include_other}
+              handleToggle={this.handleToggle}
+              textClass="IncludeOther"
+              label="Allow multiple responses per row (use checkboxes)"
             />
           </div>
           {column}
