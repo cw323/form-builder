@@ -1,5 +1,6 @@
 import React from 'react';
 import "./App.css";
+import { orderSequence } from './utilities';
 import Form from './components/Form/Form';
 import data from './data';
 import arrayMove from 'array-move';
@@ -19,7 +20,7 @@ class App extends React.Component {
     this.addQuestion = this.addQuestion.bind(this);
     this.selectQuestion = this.selectQuestion.bind(this);
     this.onSortEnd = this.onSortEnd.bind(this);
-  };
+  }
 
   componentDidMount() {
     this.setState({
@@ -46,7 +47,7 @@ class App extends React.Component {
     const sequence = questions.length + 1;
     newQuestion.sequence = sequence;
     questions.push(newQuestion);
-    this.setState({questions: questions});
+    this.setState({questions});
   }
 
   selectQuestion(index) {
@@ -57,15 +58,12 @@ class App extends React.Component {
 
   onSortEnd({oldIndex, newIndex}) {
     let move = arrayMove(this.state.questions, oldIndex, newIndex);
+    move = orderSequence(move);
     
-    for (let i = 0; i < move.length; i++) {
-      move[i].sequence = i + 1;
-    }
-
     this.setState({
       questions: move
     });
-  };
+  }
 
   render() {
     return (
