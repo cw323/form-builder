@@ -1,0 +1,57 @@
+.randomize {
+  margin-left: 24px;
+  white-space: nowrap;
+}
+
+.includeOther {
+  margin-left: 10px;
+  min-width: 207px;
+}
+
+.checkToggle {
+  display: flex;
+  margin-left: 162px;
+}
+
+.checkBoxInput {
+  margin-top: 2px;
+}
+
+.toggle {
+  position: relative;
+  display: flex;
+  width: 34px;
+  height: 18px;
+}
+
+.toggleSlider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(211, 211, 211);
+  transition: .3s;
+  border-radius: 35px;
+}
+
+.toggleSlider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 4px;
+  bottom: 2px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .toggleSlider {
+  background-color: rgb(0, 169, 225);
+}
+
+input:checked + .toggleSlider:before {
+  transform: translateX(13px);
+}

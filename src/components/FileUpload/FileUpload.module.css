@@ -1,0 +1,16 @@
+.fileUpload {
+  margin-left: 8px;
+}
+
+.fileInput {
+  display: none;
+}
+
+label:hover {
+  cursor: pointer;
+}
+
+.fileIcon {
+  width: 24px;
+  height: 24px;
+}

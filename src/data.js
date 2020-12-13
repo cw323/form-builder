@@ -10,9 +10,9 @@ const data = {
         "file_name": "media file name from the upload",
         "content_type": "image or video?"
       },
-// options can be in single or grid form, hence row and column object
+// Options can be in single or grid form
       "options": {
-// array of options for row for both grid and single question types
+// Row options for both grid and single question types
       "row": [
         {
           "id": "generate an id for the answer",
@@ -20,7 +20,7 @@ const data = {
           "sequence": 1
         }
       ],
-// array of options for column for grid question type
+// Column options for grid question types
       "column": [
           {
             "id": "generate an id for the answer",

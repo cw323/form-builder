@@ -1,13 +1,13 @@
 import React from 'react';
-import './Form.css';
-import shuffle from '../../utilities/shuffle'
-import inputCheck from '../../utilities/inputCheck'
-import QuestionTypes from '../QuestionTypes/QuestionTypes';
+import { orderSequence, shuffleSequence, inputCheck, generateId } from '../../utilities';
+import QuestionTypes from '../QuestionTypes';
 import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
-import RowOptions from '../RowOptions/RowOptions'
-import ColumnOptions from '../ColumnOptions/ColumnOptions';
+import CheckBox from '../CheckBox/CheckBox';
+import OptionsBlock from '../OptionsBlock/OptionsBlock';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 
-let generateId = () => Math.floor(Math.random() * 100000) + 1;
+import s from './Form.module.css';
+
 let handleDeleteSequence;
 
 class Form extends React.Component {
@@ -15,55 +15,59 @@ class Form extends React.Component {
     super(props);
     this.state = {
       id: generateId(),
-      text: "",
+      text: '',
       type: "RADIO_GRID",
       media: {
         id: generateId(),
-        url: "",
-        file_name: "",
-        content_type: ""
+        url: '',
+        file_name: '',
+        content_type: ''
       },
       options: {
         row: [
           {
             id: generateId(),
-            text: "",
-            sequence: 1
+            text: '',
+            sequence: null
           }
         ],
         column: [
           {
             id: generateId(),
-            text: "",
-            sequence: 1
+            text: '',
+            sequence: null
           }
         ]
       },
-      sequence: 1,
+      sequence: 0,
       randomize: false,
       include_other: false
     }
 
-    this.handleLayout = this.handleLayout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.onQuestionChange = this.onQuestionChange.bind(this);
-    this.onFileChange = this.onFileChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.addOption = this.addOption.bind(this);
-    this.deleteOption = this.deleteOption.bind(this);
+    this.handleLayout = this.handleLayout.bind(this);
     this.handleQuestionDelete = this.handleQuestionDelete.bind(this);
+    this.onQuestionChange = this.onQuestionChange.bind(this);
+    this.onFileChange = this.onFileChange.bind(this);
+    this.deleteOption = this.deleteOption.bind(this);
+    this.addOption = this.addOption.bind(this);
     this.resetState = this.resetState.bind(this);
   }
 
-  handleLayout(e) {
-    this.setState(prevState => ({
-      ...prevState,
-      type: e.target.value
-    }));
+  componentDidUpdate(prevProps) {
+    const { viewQuestion } = this.props;
+    if (!viewQuestion) return;
+
+    if (viewQuestion !== prevProps.viewQuestion) {
+      this.setState({
+        ...viewQuestion
+      });
+    }
   }
 
-  handleInputChange(index, e) {
+  handleInputChange(e, index) {
     const { name, value } = e.target;
     const items = [...this.state.options[name]];
     items[index].text = value;
@@ -86,29 +90,84 @@ class Form extends React.Component {
         [oppositeName]: opposite
       }
     }));
-
   }
 
-  addOption(e) {
+  handleToggle(e) {
     const { name } = e.target;
-    const options = [...this.state.options[name]];
-    const sequence = this.state.options[name].length + 1;
-    options.push({
-      "id": generateId(),
-      "text": "",
-      "sequence": sequence,
-    });
+    const isChecked = !this.state[name];
+    this.setState(prevState => ({
+        ...prevState,
+        [name]: isChecked
+    }));
+  }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const { text, type, options, randomize } = this.state;
+    const { row, column } = options; 
+    const check = inputCheck(text, type, row, column);
+
+    if (!check) {
+      return;
+    }
+
+    const changedState = {...this.state};
+    let rowArray = [...row];
+    let columnArray = [...column];
+
+    if (randomize) {
+      rowArray = shuffleSequence(rowArray);
+    }
+
+    rowArray = orderSequence(rowArray);
+    changedState.options.row = rowArray;
+    columnArray = orderSequence(columnArray);
+    changedState.options.column = columnArray;
+  
+    this.props.addQuestion(changedState);
+    this.resetState();
+  }
+
+  handleLayout(e) {
     this.setState(prevState => ({
       ...prevState,
-      options: {
-        ...prevState.options,
-        [name]: options
-      }
-    }))
+      type: e.target.value
+    }));
   }
 
-  deleteOption(index, e) {
+  handleQuestionDelete(sequence) {
+    if (!sequence) alert('Please select a question to delete from the Survey list.');
+    handleDeleteSequence = sequence;
+    this.resetState(handleDeleteSequence);
+  }
+
+  onQuestionChange(e) {
+    const { value } = e.target;
+    this.setState(prevState => ({
+        ...prevState,
+        text: value
+    }));
+  }
+
+  onFileChange(e) {
+    const file = e.target.files[0];
+    const question = {...this.state};
+
+    if (file !== undefined) {
+      question.media = {
+        id: generateId(),
+        url: file.lastModified,
+        file_name: file.name,
+        content_type: file.type,
+      }
+
+      this.setState({
+        media: question
+      })
+    }
+  }
+
+  deleteOption(e, index) {
     const { options } = this.state;
     const { name } = e.target;
     
@@ -141,69 +200,66 @@ class Form extends React.Component {
     }));
   }
 
-  handleToggle(e) {
-    const { name } = e.target;
-    const isChecked = this.state[name] ? false : true;
-    this.setState(prevState => ({
-        ...prevState,
-        [name]: isChecked
-    }));
-  }
-
-  onQuestionChange(e) {
-    const { value } = e.target;
-    this.setState(prevState => ({
-        ...prevState,
-        text: value
-    }));
-  }
-
-  onFileChange(e) {
-    const file = e.target.files[0];
-    const question = {...this.state};
-
-    if (file?.file_name) {
-      question.media = {
+  addOption(e, index) {
+    const { name, id } = e.target;
+    const options = [...this.state.options[name]];
+    let bulkNum = 5;
+    
+    if (id !== 'BulkButton') {
+      options.splice(index + 1, 0, {
         id: generateId(),
-        url: "",
-        file_name: file.name,
-        content_type: file.type,
-      }
-
-      this.setState({
-        media: question
-      })
+        text: '',
+        sequence: null,
+      });
     }
+    
+    if (id === 'BulkButton') {
+      for (let i = 0; i < bulkNum; i += 1) {
+        options.push({
+          id: generateId(),
+          text: '',
+          sequence: null,
+        });
+      }
+    }
+
+    this.setState(prevState => ({
+      ...prevState,
+      options: {
+        ...prevState.options,
+        [name]: options
+      }
+    }));
   }
 
   resetState(sequence) {
     this.setState({
       id: generateId(),
-      text: "",
+      text: '',
       type: "RADIO_GRID",
       media: {
         id: generateId(),
-        url: "",
-        file_name: "",
-        content_type: ""
+        url: '',
+        file_name: '',
+        content_type: ''
       },
       options: {
         row: [
           {
             id: generateId(),
-            text: "",
-            sequence: 1
+            text: '',
+            sequence: null
           }
         ],
         column: [
           {
             id: generateId(),
-            text: "",
-            sequence: 1
+            text: '',
+            sequence: null
           }
         ]
       },
-      sequence: 1,
+      sequence: 0,
       randomize: false,
       include_other: false
     }, () => {
@@ -213,47 +269,6 @@ class Form extends React.Component {
     })
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { text, type, options, randomize } = this.state;
-    const { row, column } = options; 
-    const check = inputCheck(text, type, row, column);
-
-    if (!check) {
-      return;
-    }
-
-    let changedState = {...this.state};
-
-    if (randomize) {
-      let rowsArray = [...row];
-      rowsArray = shuffle(rowsArray)
-      for (let i = 0; i < rowsArray.length; i++) {
-        rowsArray[i].sequence = i+1;
-      }
-      changedState.options.row = rowsArray;
-    }
-
-    this.props.addQuestion(changedState);
-    this.resetState();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { viewQuestion } = this.props;
-    if (!viewQuestion) return;
-
-    if (viewQuestion !== prevProps.viewQuestion) {
-      this.setState({
-        ...viewQuestion
-      })
-    }
-  }
-
-  handleQuestionDelete(sequence) {
-    handleDeleteSequence = sequence;
-    this.resetState(handleDeleteSequence);
-  }
-
   render() {
     let disableButton = false;
 
@@ -261,51 +276,81 @@ class Form extends React.Component {
       disableButton = true;
     }
 
+    let column = null;
+     
+    if (this.state.type === "RADIO_GRID" || this.state.type === "CHECK_BOX_GRID") {
+      column = (
+        <OptionsBlock
+          title="Column Options"
+          position="column"
+          positionOptions={this.state.options.column}
+          handleInputChange={this.handleInputChange}
+          addOption={this.addOption}
+          deleteOption={this.deleteOption}
+        />
+      );
+    }
+
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="HeaderBar">
-          {/* <div>...</div> */}
-          <div className="LayoutSelectorWrapper">
-            <select
-              className="LayoutSelector"
-              value={this.state.type}
-              onChange={this.handleLayout}
-            >
-              {this.props.questionTypes.map(option => {
-                return <QuestionTypes key={option} option={option} />;
-              })}
-            </select>
+        <div className={s.formWrapper}>
+          <div className={s.headerBar}>
+            <div className={s.layoutSelectorWrapper}>
+              <select
+                className={s.layoutSelector}
+                value={this.state.type}
+                onChange={this.handleLayout}
+              >
+                {this.props.questionTypes.map(option => <QuestionTypes key={option} option={option} />)}
+              </select>
+            </div>
+            <div className={s.verticalDivider} />
+            <div className={s.dropDownMenu}>
+              <div className={s.dropButton}>
+                <BsThreeDotsVertical />
+              </div>
+              <div className={s.dropDownMenuItems}>
+                <div className={s.deleteQuestion} onClick={() => this.handleQuestionDelete(this.state.sequence)}>
+                  Delete Question
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="VerticleDivider"></div>
-          <div className="EditOptionWrapper">
-            <button type="button" onClick={() => this.handleQuestionDelete(this.state.sequence)}>Delete Question</button>
+          <div className={s.horizontalDivider}></div>
+          <EnterYourQuestion 
+            value={this.state.text}
+            onQuestionChange={this.onQuestionChange}
+            onFileChange={this.onFileChange}
+          />
+          <div className={s.horizontalDivider}></div>
+          <OptionsBlock
+            title="Row Options"
+            position="row"
+            positionOptions={this.state.options.row}
+            handleInputChange={this.handleInputChange}
+            addOption={this.addOption}
+            deleteOption={this.deleteOption}
+          />
+          <div className={s.checkBoxesWrapper}>
+            <CheckBox
+              className="randomize"
+              name="randomize"
+              checked={this.state.randomize}
+              handleToggle={this.handleToggle}
+              label="Randomize Rows"
+            />
+            <CheckBox
+              className="includeOther"
+              name="include_other"
+              checked={this.state.include_other}
+              handleToggle={this.handleToggle}
+              label="Allow multiple responses per row (use checkboxes)"
+            />
           </div>
+          {column}
         </div>
-      <EnterYourQuestion 
-        value={this.state.text}
-        onQuestionChange={this.onQuestionChange}
-        onFileChange={this.onFileChange}
-      />
-      <RowOptions
-        row={this.state.options.row}
-        handleInputChange={this.handleInputChange}
-        addOption={this.addOption}
-        deleteOption={this.deleteOption}
-        handleToggle={this.handleToggle}
-        includeOther={this.state.include_other}
-        randomize={this.state.randomize}
-      />
-{/* ANSWER FOR COLUMN IF GRID LAYOUT SELECTED */}
-      <ColumnOptions
-        type={this.state.type}
-        column={this.state.options.column}
-        handleInputChange={this.handleInputChange}
-        addOption={this.addOption}
-        deleteOption={this.deleteOption}
-      />
-{/* BUTTON TO SAVE THE QUESTION FORM */}
-      <input type="submit" disabled={disableButton} value="+ Add Question"/>
-    </form>
+        <input className={s.addQuestionButton} type="submit" disabled={disableButton} value="+ Add Question" />
+      </form>
     );
   }
 }

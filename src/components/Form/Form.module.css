@@ -1,0 +1,112 @@
+.headerBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 8px 0;
+}
+
+.deleteQuestion {
+  border: none;
+  background-color: transparent;
+  color: rgb(121, 122, 128);
+  cursor: pointer;
+}
+
+.titleAndFormWrapper {
+  width: 100%;
+  max-width: 1080px;
+}
+
+.layoutSelector {
+  border: none;
+  color: rgb(121, 122, 128);
+  padding: 7px;
+}
+
+.layoutSelector:focus {
+  outline: none;
+}
+
+.dropButton {
+  background-color: transparent;
+  color: rgb(97, 97, 99);
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  line-height: 0;
+  padding: 5px;
+}
+
+.dropDownMenu {
+  position: relative;
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px;
+}
+
+.dropDownMenuItems {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0;
+  border-radius: 5px;
+}
+
+.dropDownMenuItems div {
+  color: rgb(97, 97, 99);
+  padding: 12px 0 12px 12px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  border-radius: 5px;
+}
+
+.dropDownMenuItems div:hover {
+  background-color: rgb(248, 248, 248);
+}
+
+.dropDownMenu:hover .dropDownMenuItems {
+  display: block;
+}
+
+.dropDownMenu:hover .dropButton {
+  background-color: transparent;
+}
+
+.formWrapper {
+  padding: 0 30px 30px;
+  margin: 40px 20px 0;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+.addQuestionButton {
+  padding: 8px 12px;
+  margin: 30px 20px;
+  border-style: solid;
+  border-color: rgb(121, 122, 128);
+  color: rgb(121, 122, 128);
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+}
+
+.verticalDivider {
+  border-left: 1px solid rgb(121, 122, 128);
+  height: 12px;
+  margin-top: 9px;
+  margin-left: 18px;
+}
+
+.checkBoxesWrapper {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontalDivider {
+  border: 1px solid rgb(248, 248, 248);
+  margin: 0px -30px;
+}
