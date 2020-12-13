@@ -1,5 +1,5 @@
 import React from 'react';
-import { shuffle, inputCheck, generateId } from '../../utilities';
+import { orderSequence, shuffleSequence, inputCheck, generateId } from '../../utilities';
 import QuestionTypes from '../QuestionTypes';
 import EnterYourQuestion from '../EnterYourQuestion/EnterYourQuestion';
 import CheckBox from '../CheckBox/CheckBox';
@@ -28,14 +28,14 @@ class Form extends React.Component {
           {
             id: generateId(),
             text: '',
-            sequence: 1
+            sequence: null
           }
         ],
         column: [
           {
             id: generateId(),
             text: '',
-            sequence: 1
+            sequence: null
           }
         ]
       },
@@ -112,16 +112,18 @@ class Form extends React.Component {
     }
 
     const changedState = {...this.state};
+    let rowArray = [...row];
+    let columnArray = [...column];
 
     if (randomize) {
-      let rowsArray = [...row];
-      rowsArray = shuffle(rowsArray)
-      for (let i = 0; i < rowsArray.length; i += 1) {
-        rowsArray[i].sequence = i + 1;
-      }
-      changedState.options.row = rowsArray;
+      rowArray = shuffleSequence(rowArray);
     }
 
+    rowArray = orderSequence(rowArray);
+    changedState.options.row = rowArray;
+    columnArray = orderSequence(columnArray);
+    changedState.options.column = columnArray;
+  
     this.props.addQuestion(changedState);
     this.resetState();
   }
@@ -198,21 +200,28 @@ class Form extends React.Component {
     }));
   }
 
-  addOption(e) {
+  addOption(e, index) {
     const { name, id } = e.target;
     const options = [...this.state.options[name]];
-    let sequence = this.state.options[name].length + 1;
-    let num = 1;
+    let bulkNum = 5;
     
-    if (id === 'BulkButton') num = 5;
-
-    for (let i = 0; i < num; i += 1) {
-      options.push({
+    if (id !== 'BulkButton') {
+      options.splice(index + 1, 0, {
         id: generateId(),
         text: '',
-        sequence: sequence + i,
+        sequence: null,
       });
-    };
+    }
+    
+    if (id === 'BulkButton') {
+      for (let i = 0; i < bulkNum; i += 1) {
+        options.push({
+          id: generateId(),
+          text: '',
+          sequence: null,
+        });
+      }
+    }
 
     this.setState(prevState => ({
       ...prevState,
@@ -220,7 +229,7 @@ class Form extends React.Component {
         ...prevState.options,
         [name]: options
       }
-    }))
+    }));
   }
 
   resetState(sequence) {
@@ -239,14 +248,14 @@ class Form extends React.Component {
           {
             id: generateId(),
             text: '',
-            sequence: 1
+            sequence: null
           }
         ],
         column: [
           {
             id: generateId(),
             text: '',
-            sequence: 1
+            sequence: null
           }
         ]
       },

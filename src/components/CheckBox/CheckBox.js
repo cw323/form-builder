@@ -7,7 +7,7 @@ const CheckBox = ({ name, checked, handleToggle, textClass, label }) => {
 
   if (name === 'randomize') {
     toggle = 'Toggle';
-    span = <span class="ToggleSlider"></span>;
+    span = <span className="ToggleSlider"></span>;
   }
 
   return (

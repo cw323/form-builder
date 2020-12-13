@@ -1,4 +1,14 @@
-export const shuffle = (array) => {
+export const orderSequence = (array) => {
+  const arr = [...array];
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i].sequence = i + 1;
+  }
+
+  return arr;
+};
+
+export const shuffleSequence = (array) => {
   const arr = [...array];
   let currentIndex = arr.length;
   let tempValue;

@@ -31,6 +31,7 @@ const OptionsBlock = ({ title, position, positionOptions, handleInputChange, add
           <Button
             id="AddDeleteButton"
             positionName={position}
+            index={index}
             handleClick={addOption}
             icon={<GrAddCircle className="Icon" />}
           />
