@@ -1,9 +1,10 @@
 import React from 'react';
 import { SortableElement } from 'react-sortable-hoc';
-import './SortableItem.css';
+
+import s from './SortableItem.module.css';
 
 const SortableItem = SortableElement(({ item }) =>
-  <div className="QuestionItem">Question {item.sequence}: {item.text}</div>
+  <div className={s.questionItem}>Question {item.sequence}: {item.text}</div>
 );
 
 export default SortableItem;

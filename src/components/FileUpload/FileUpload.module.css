@@ -1,8 +1,8 @@
-.FileUpload {
+.fileUpload {
   margin-left: 8px;
 }
 
-#FileInput {
+.fileInput {
   display: none;
 }
 
@@ -10,7 +10,7 @@ label:hover {
   cursor: pointer;
 }
 
-.FileIcon {
+.fileIcon {
   width: 24px;
   height: 24px;
 }

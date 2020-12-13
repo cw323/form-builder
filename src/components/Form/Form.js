@@ -6,7 +6,7 @@ import CheckBox from '../CheckBox/CheckBox';
 import OptionsBlock from '../OptionsBlock/OptionsBlock';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-import './Form.css';
+import s from './Form.module.css';
 
 let handleDeleteSequence;
 
@@ -63,7 +63,7 @@ class Form extends React.Component {
     if (viewQuestion !== prevProps.viewQuestion) {
       this.setState({
         ...viewQuestion
-      })
+      });
     }
   }
 
@@ -293,36 +293,36 @@ class Form extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="FormWrapper">
-          <div className="HeaderBar">
-            <div className="LayoutSelectorWrapper">
+        <div className={s.formWrapper}>
+          <div className={s.headerBar}>
+            <div className={s.layoutSelectorWrapper}>
               <select
-                className="LayoutSelector"
+                className={s.layoutSelector}
                 value={this.state.type}
                 onChange={this.handleLayout}
               >
                 {this.props.questionTypes.map(option => <QuestionTypes key={option} option={option} />)}
               </select>
             </div>
-            <div className="VerticalDividerHeader" />
-            <div className="DropDownMenu">
-              <div className="DropButton">
+            <div className={s.verticalDivider} />
+            <div className={s.dropDownMenu}>
+              <div className={s.dropButton}>
                 <BsThreeDotsVertical />
               </div>
-              <div className="DropDownMenuItems">
-                <div className="DeleteQuestion" onClick={() => this.handleQuestionDelete(this.state.sequence)}>
+              <div className={s.dropDownMenuItems}>
+                <div className={s.deleteQuestion} onClick={() => this.handleQuestionDelete(this.state.sequence)}>
                   Delete Question
                 </div>
               </div>
             </div>
           </div>
-          <div className="HorizontalDivider"></div>
+          <div className={s.horizontalDivider}></div>
           <EnterYourQuestion 
             value={this.state.text}
             onQuestionChange={this.onQuestionChange}
             onFileChange={this.onFileChange}
           />
-          <div className="HorizontalDivider"></div>
+          <div className={s.horizontalDivider}></div>
           <OptionsBlock
             title="Row Options"
             position="row"
@@ -331,25 +331,25 @@ class Form extends React.Component {
             addOption={this.addOption}
             deleteOption={this.deleteOption}
           />
-          <div className="CheckBoxesWrapper">
+          <div className={s.checkBoxesWrapper}>
             <CheckBox
+              className="randomize"
               name="randomize"
               checked={this.state.randomize}
               handleToggle={this.handleToggle}
-              textClass="Randomize"
               label="Randomize Rows"
             />
             <CheckBox
+              className="includeOther"
               name="include_other"
               checked={this.state.include_other}
               handleToggle={this.handleToggle}
-              textClass="IncludeOther"
               label="Allow multiple responses per row (use checkboxes)"
             />
           </div>
           {column}
         </div>
-        <input className="AddQuestionButton" type="submit" disabled={disableButton} value="+ Add Question" />
+        <input className={s.addQuestionButton} type="submit" disabled={disableButton} value="+ Add Question" />
       </form>
     );
   }

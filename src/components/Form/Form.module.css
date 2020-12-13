@@ -1,33 +1,33 @@
-.HeaderBar {
+.headerBar {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   padding: 8px 0;
 }
 
-.DeleteQuestion {
+.deleteQuestion {
   border: none;
   background-color: transparent;
   color: rgb(121, 122, 128);
   cursor: pointer;
 }
 
-.TitleAndFormWrapper {
+.titleAndFormWrapper {
   width: 100%;
   max-width: 1080px;
 }
 
-.LayoutSelector {
+.layoutSelector {
   border: none;
   color: rgb(121, 122, 128);
   padding: 7px;
 }
 
-.LayoutSelector:focus {
+.layoutSelector:focus {
   outline: none;
 }
 
-.DropButton {
+.dropButton {
   background-color: transparent;
   color: rgb(97, 97, 99);
   border: none;
@@ -37,14 +37,14 @@
   padding: 5px;
 }
 
-.DropDownMenu {
+.dropDownMenu {
   position: relative;
   display: inline-block;
   margin-left: 8px;
   padding: 2px;
 }
 
-.DropDownMenuItems {
+.dropDownMenuItems {
   display: none;
   position: absolute;
   background-color: white;
@@ -55,7 +55,7 @@
   border-radius: 5px;
 }
 
-.DropDownMenuItems div {
+.dropDownMenuItems div {
   color: rgb(97, 97, 99);
   padding: 12px 0 12px 12px;
   text-decoration: none;
@@ -64,26 +64,26 @@
   border-radius: 5px;
 }
 
-.DropDownMenuItems div:hover {
+.dropDownMenuItems div:hover {
   background-color: rgb(248, 248, 248);
 }
 
-.DropDownMenu:hover .DropDownMenuItems {
+.dropDownMenu:hover .dropDownMenuItems {
   display: block;
 }
 
-.DropDownMenu:hover .DropButton {
+.dropDownMenu:hover .dropButton {
   background-color: transparent;
 }
 
-.FormWrapper {
+.formWrapper {
   padding: 0 30px 30px;
   margin: 40px 20px 0;
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
 }
 
-.AddQuestionButton {
+.addQuestionButton {
   padding: 8px 12px;
   margin: 30px 20px;
   border-style: solid;
@@ -93,20 +93,20 @@
   background-color: rgb(255, 255, 255);
 }
 
-.VerticalDividerHeader {
+.verticalDivider {
   border-left: 1px solid rgb(121, 122, 128);
   height: 12px;
   margin-top: 9px;
   margin-left: 18px;
 }
 
-.CheckBoxesWrapper {
+.checkBoxesWrapper {
   margin-top: 16px;
   display: flex;
   flex-direction: row;
 }
 
-.HorizontalDivider {
+.horizontalDivider {
   border: 1px solid rgb(248, 248, 248);
   margin: 0px -30px;
 }

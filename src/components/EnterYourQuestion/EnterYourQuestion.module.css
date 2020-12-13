@@ -1,8 +1,8 @@
-.QuestionBlockWrapper {
+.questionBlockWrapper {
   margin: 26px 0 22px;
 }
 
-.QuestionInputWrapper {
+.questionInputWrapper {
   display: flex;
   flex-direction: row;
 }

@@ -4,23 +4,24 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import InputBar from '../InputBar/InputBar';
 import Button from '../Button/Button';
 
-import './OptionsBlock.css';
+import s from './OptionsBlock.module.css';
 
 const OptionsBlock = ({ title, position, positionOptions, handleInputChange, addOption, deleteOption }) => (
-  <div className="OptionsBlockWrapper">
-    <div className="OptionsTitleWrapper">
+  <div className={s.optionsBlockWrapper}>
+    <div className={s.optionsTitleWrapper}>
       <h3>{title}</h3>
-      <div className="VerticalDividerOptions" />
+      <div className={s.verticalDivider} />
       <Button
+        className="bulkButton"
         id="BulkButton"
         positionName={position}
         handleClick={addOption}
         label="+ Bulk Answers"
       />
     </div>
-    <div className="OptionsInputWrapper">
+    <div className={s.optionsInputWrapper}>
       {positionOptions.map((option, index) => (
-        <div key={option.id} className="OptionInputWrapper">
+        <div key={option.id} className={s.optionInputWrapper}>
           <InputBar
             name={position}
             value={positionOptions[index].text}
@@ -29,18 +30,20 @@ const OptionsBlock = ({ title, position, positionOptions, handleInputChange, add
             handleInputChange={handleInputChange}
           />
           <Button
+            className="addDeleteButton"
             id="AddDeleteButton"
             positionName={position}
             index={index}
             handleClick={addOption}
-            icon={<GrAddCircle className="Icon" />}
+            icon={<GrAddCircle className={s.icon} />}
           />
           <Button
+            className="addDeleteButton"
             id="AddDeleteButton"
             positionName={position}
             index={index}
             handleClick={deleteOption}
-            icon={<RiDeleteBinLine className="Icon" />}
+            icon={<RiDeleteBinLine className={s.icon} />}
           />
         </div>
       ))}

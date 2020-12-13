@@ -1,10 +1,11 @@
 import React from 'react';
-import "./App.css";
 import { orderSequence } from './utilities';
 import Form from './components/Form/Form';
 import data from './data';
 import arrayMove from 'array-move';
 import SortableList from './components/SortableList';
+
+import s from "./App.module.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -67,18 +68,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="ListAndFormWrapper"> 
-          <div className="QuestionsList">
-            <h1 className="Title">Survey</h1>
+      <div className={s.app}>
+        <div className={s.listAndFormWrapper}> 
+          <div className={s.questionsList}>
+            <h1 className={s.title}>Survey</h1>
             <SortableList
               items={this.state.questions}
               onSortEnd={this.onSortEnd}
               selectQuestion={this.selectQuestion}
             />
           </div>
-          <div className="TitleAndFormWrapper">
-            <h1 className="Title">Setup Survey</h1>
+          <div className={s.titleAndFormWrapper}>
+            <h1 className={s.title}>Setup Survey</h1>
             <Form
               questionTypes={this.state.allowed_question_types}
               addQuestion={this.addQuestion}
@@ -89,7 +90,7 @@ class App extends React.Component {
             />
           </div>
         </div>
-        <div className="JSON">{JSON.stringify(this.state)}</div>
+        <div className={s.jSON}>{JSON.stringify(this.state)}</div>
       </div>
     );
   }

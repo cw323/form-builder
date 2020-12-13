@@ -1,12 +1,12 @@
 import React from 'react';
 import { FiImage } from 'react-icons/fi';
 
-import './FileUpload.css';
+import s from './FileUpload.module.css';
 
 const FileUpload = ({ onFileChange }) => (
-  <div className="FileUpload">
-    <label htmlFor="FileInput"><FiImage className="FileIcon"/></label>
-    <input id="FileInput" type="file" onChange={onFileChange} />
+  <div className={s.fileUpload}>
+    <label htmlFor="fileInput"><FiImage className={s.fileIcon}/></label>
+    <input className={s.fileInput} id="fileInput" type="file" onChange={onFileChange} />
   </div>
 );
 

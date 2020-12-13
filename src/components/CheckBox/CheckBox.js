@@ -1,26 +1,26 @@
 import React from 'react';
-import './CheckBox.css';
+import s from './CheckBox.module.css';
 
-const CheckBox = ({ name, checked, handleToggle, textClass, label }) => {
-  let toggle = 'CheckToggle';
+const CheckBox = ({ className, name, checked, handleToggle, label }) => {
+  let toggle = s.checkToggle;
   let span = null;
 
   if (name === 'randomize') {
-    toggle = 'Toggle';
-    span = <span className="ToggleSlider"></span>;
+    toggle = s.toggle;
+    span = <span className={s.toggleSlider}></span>;
   }
 
   return (
     <label className={toggle}>
       <input
-        className="CheckBoxInput"
+        className={s.checkBoxInput}
         name={name}
         type="checkbox"
         checked={checked}
         onChange={(e) => handleToggle(e)}
       />
       {span}
-      <div className={textClass}>
+      <div className={s[className]}>
         {label}
       </div>
     </label>

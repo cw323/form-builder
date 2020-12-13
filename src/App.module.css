@@ -1,26 +1,26 @@
-.App {
+.app {
   margin: 40px;
 }
 
-.Title {
+.title {
   margin-left: 40px;
   color: rgb(97, 97, 99);
 }
 
-.ListAndFormWrapper {
+.listAndFormWrapper {
   display: flex;
   flex-direction: row;
 }
           
-.QuestionsList {
+.questionsList {
   display: flex;
   flex-direction: column;
-  width: 320px;
   padding-right: 20px;
   overflow-wrap: break-word;
   background-color: rgb(255, 255, 255);
+  min-width: 285px;
 }
 
-.JSON {
+.jSON {
   margin-top: 24px;
 }
